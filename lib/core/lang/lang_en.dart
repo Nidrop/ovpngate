@@ -6,4 +6,7 @@ class LangEN {
   static const String list = 'list';
 
   static const String serverListTitle = 'Server list';
+  static const String sessions = 'sessions';
+  static const String days = 'days';
+  static const String mbps = 'MBps';
 }
