@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:ovpngate/features/server%20list/data/dto/server_info_dto.dart';
 
 class VpngateRemoteSource {
-  final String baseURL = 'www.vpngate.net';
+  final String baseURL = 'http://www.vpngate.net';
   final String serverListPath = '/api/iphone/';
   final int rowLength = 15;
 

@@ -23,10 +23,10 @@ class MyApp extends StatelessWidget {
       ),
       child: MultiBlocProvider(
         providers: [
-          // BlocProvider(
-          //   create: (context) =>
-          //       ServerListCubit(context.read<VpngateRepository>()),
-          // ),
+          BlocProvider(
+            create: (context) =>
+                ServerListCubit(context.read<VpngateRepository>()),
+          ),
           BlocProvider(
             create: (context) => ConnectedServerCubit(),
           ),
