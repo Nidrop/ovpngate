@@ -16,6 +16,7 @@ class VpngateRepository {
       list.length,
       (index) => ServerInfo(
         speed: list[index].speed,
+        countryShort: list[index].countryShort,
         sessions: list[index].numVpnSessions,
         uptime: list[index].uptime,
         name: list[index].hostName,
