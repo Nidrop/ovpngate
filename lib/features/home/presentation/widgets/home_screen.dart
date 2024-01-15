@@ -26,35 +26,54 @@ class HomePage extends StatelessWidget {
           Expanded(
             flex: 5,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                const Text(LangEN.connectedTo),
+                Text(
+                  '${LangEN.vpnServer}:',
+                  style: TextStyle(fontSize: 20),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
                 if (connectedServer.isConnected)
-                  Text(connectedServer.server!.name)
+                  Text(
+                    connectedServer.server!.name,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
                 else if (connectedServer.isLoading)
                   const CircularProgressIndicator()
                 else
-                  const Text(LangEN.notConnected)
+                  const Text(
+                    LangEN.notConnected,
+                    style: TextStyle(
+                        // fontSize: 20,
+                        // fontWeight: FontWeight.bold,
+                        ),
+                  )
               ],
             ),
           ),
           Expanded(
-            flex: 3,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: openServerList,
-                  child: const Text(LangEN.connect),
-                ),
-                ElevatedButton(
-                  onPressed: openServerList,
-                  child: const Text(LangEN.list),
-                )
-              ],
-            ),
+            flex: 5,
+            child: Center(
+                child: (connectedServer.isConnected)
+                    ? ElevatedButton(
+                        onPressed: openServerList,
+                        child: const Text(LangEN.disconnect),
+                      )
+                    : ElevatedButton(
+                        onPressed: openServerList,
+                        child: const Text(LangEN.connect),
+                      )),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: openServerList,
+        child: const Icon(Icons.list),
       ),
     );
   }
