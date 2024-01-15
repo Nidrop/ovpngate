@@ -1,24 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ovpngate/core/domain/entity/server_info.dart';
+import 'package:ovpngate/core/lang/lang_en.dart';
+import 'package:ovpngate/core/presentation/bloc/connected_server_cubit.dart';
 
 class ServerListItem extends StatelessWidget {
-  const ServerListItem({super.key});
+  final ServerInfo server;
+
+  const ServerListItem({super.key, required this.server});
+
+  void connect(BuildContext context) {
+    context.read<ConnectedServerCubit>().connectTo(server);
+    Navigator.pop(context);
+  }
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Text('JP'),
-      title: Text('opengw.net'),
+      leading: Text(server.countryShort),
+      title: Text(server.name),
       subtitle: Row(
         //mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('38 sessions'),
+          Text('${server.sessions} ${LangEN.sessions}'),
           SizedBox(
             width: 20,
           ),
-          Text('14 days'),
+          Text('${server.uptime} ${LangEN.days}'),
         ],
       ),
-      trailing: Text('117 MBps'),
+      trailing: Text('${server.speed} ${LangEN.mbps}'),
+      onTap: () => connect(context),
     );
   }
 }

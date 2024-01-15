@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ovpngate/core/domain/entity/server_info.dart';
 import 'package:ovpngate/core/lang/lang_en.dart';
 import 'package:ovpngate/features/server%20list/presentation/widgets/server_list_item.dart';
 
@@ -13,7 +14,16 @@ class ServerListScreen extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          ServerListItem(),
+          ServerListItem(
+            server: ServerInfo(
+              countryShort: 'nl',
+              speed: 128,
+              sessions: 38,
+              uptime: 10,
+              name: 'testserver.net',
+              ovpnConfig: '',
+            ),
+          ),
         ],
       ),
     );
