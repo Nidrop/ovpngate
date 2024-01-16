@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:csv/csv.dart';
 import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart';
 import 'package:ovpngate/features/server%20list/data/dto/server_info_dto.dart';
+import 'package:path_provider/path_provider.dart';
 
 class VpngateRemoteSource {
   final String baseURL = 'http://www.vpngate.net';
@@ -13,11 +18,20 @@ class VpngateRemoteSource {
 
   Future<List<ServerInfoDto>> getServerList() async {
     final response = await dio.get<String>(baseURL + serverListPath);
+    // final response = await http.get(Uri.parse(baseURL + serverListPath));
+
+    // final dir = await getApplicationCacheDirectory();
+    // final f = File('${dir.path}/ovpngate.txt');
+    // debugPrint(f.path);
+    // if (!await f.exists()) {
+    //   f.writeAsString(response.data!);
+    // }
 
     List<ServerInfoDto> list = [];
 
     if (response.statusCode == 200) {
-      final value = response.data!;
+      final value = response.data;
+      // final value = response.body;
       final csvList = const CsvToListConverter().convert(value);
       for (int i = 2; i < csvList.length; i++) {
         final row = csvList[i];
