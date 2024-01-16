@@ -17,7 +17,9 @@ class ServerListScreen extends StatelessWidget {
       body: FutureBuilder(
           future: context.watch<ServerListCubit>().state,
           builder: (_, snapshot) {
-            if (snapshot.hasData) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasData) {
               return ListView.builder(
                 itemBuilder: (BuildContext context, int index) {
                   return ServerListItem(
@@ -37,9 +39,9 @@ class ServerListScreen extends StatelessWidget {
                 itemCount: snapshot.data!.length,
               );
             } else if (snapshot.hasError) {
-              return const Text('Error getting data');
+              return Text('ERROR: ${snapshot.error}');
             } else {
-              return const Center(child: CircularProgressIndicator());
+              return const Text('None');
             }
           }),
     );
