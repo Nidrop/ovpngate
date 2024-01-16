@@ -17,7 +17,11 @@ class VpngateRemoteSource {
   VpngateRemoteSource(this.dio);
 
   Future<List<ServerInfoDto>> getServerList() async {
-    final response = await dio.get<String>(baseURL + serverListPath);
+    final response = await dio.get<String>(baseURL + serverListPath,
+        options: Options(
+          contentType: Headers.textPlainContentType,
+          responseType: ResponseType.plain,
+        ));
     // final response = await http.get(Uri.parse(baseURL + serverListPath));
 
     // final dir = await getApplicationCacheDirectory();
