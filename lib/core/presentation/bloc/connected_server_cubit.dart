@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:openvpn_flutter/openvpn_flutter.dart';
 import 'package:ovpngate/core/domain/entity/server_info.dart';
@@ -35,6 +36,26 @@ class ConnectedServerCubit extends Cubit<ConnectedServerState> {
       server: state.server,
       openvpn: _factoryCreateOpenvpn(),
       vpnstage: stage,
+      configCipherFix: state.configCipherFix,
+    ));
+  }
+
+  String _configPatches(String ovpnConfig) {
+    if (state.configCipherFix) {
+      debugPrint('PATCHED');
+      //TODO: refactoring
+      return ovpnConfig.replaceAll(RegExp(r'cipher '), 'data-cipher');
+    }
+    debugPrint('NOT PATCHED');
+    return ovpnConfig;
+  }
+
+  void setConfigCipherFix(bool value) {
+    emit(ConnectedServerState(
+      server: state.server,
+      openvpn: _factoryCreateOpenvpn(),
+      vpnstage: state.vpnstage,
+      configCipherFix: value,
     ));
   }
 
@@ -43,13 +64,18 @@ class ConnectedServerCubit extends Cubit<ConnectedServerState> {
       server: server,
       openvpn: _factoryCreateOpenvpn(),
       vpnstage: state.vpnstage,
+      configCipherFix: state.configCipherFix,
     ));
   }
 
   void connect() {
+    // debugPrint('WITHOUT PATCH');
+    // debugPrint(state.server!.ovpnConfig);
+    // debugPrint('WITH PATHCH');
+    // debugPrint(_configPatches(state.server!.ovpnConfig));
     if (/*state.vpnstage == VPNStage.disconnected &&*/ state.server != null) {
       state.openvpn.connect(
-        state.server!.ovpnConfig,
+        _configPatches(state.server!.ovpnConfig),
         state.server!.name,
         // username: username,
         // password: password,
