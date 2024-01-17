@@ -1,7 +1,8 @@
 class LangEN {
   static const String homeTitle = 'oVPNGate';
   static const String vpnServer = 'VPN server';
-  static const String notConnected = 'not connected';
+  static const String vpnStage = 'VPN stage';
+  static const String notSelected = 'not selected';
   static const String connect = 'Connect';
   static const String disconnect = 'Disonnect';
 

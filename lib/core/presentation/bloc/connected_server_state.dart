@@ -1,13 +1,14 @@
+import 'package:openvpn_flutter/openvpn_flutter.dart';
 import 'package:ovpngate/core/domain/entity/server_info.dart';
 
 class ConnectedServerState {
+  final OpenVPN openvpn;
   final ServerInfo? server;
-  final bool isConnected;
-  final bool isLoading;
+  final VPNStage vpnstage;
 
   ConnectedServerState({
+    required this.openvpn,
     this.server,
-    this.isConnected = false,
-    this.isLoading = false,
+    required this.vpnstage,
   });
 }

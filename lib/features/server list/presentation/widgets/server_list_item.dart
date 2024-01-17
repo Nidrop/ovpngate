@@ -10,7 +10,7 @@ class ServerListItem extends StatelessWidget {
   const ServerListItem({super.key, required this.server});
 
   void connect(BuildContext context) {
-    context.read<ConnectedServerCubit>().connectTo(server);
+    context.read<ConnectedServerCubit>().setServer(server);
     Navigator.pop(context);
   }
 

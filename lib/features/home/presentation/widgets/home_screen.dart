@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:openvpn_flutter/openvpn_flutter.dart';
 import 'package:ovpngate/core/lang/lang_en.dart';
 import 'package:ovpngate/core/presentation/bloc/connected_server_cubit.dart';
 import 'package:ovpngate/features/server%20list/presentation/server_list_screen.dart';
@@ -14,6 +15,19 @@ class HomePage extends StatelessWidget {
     void openServerList() {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => const ServerListScreen()));
+    }
+
+    void connect() {
+      if (connectedServer.server == null) {
+        openServerList();
+        return;
+      }
+
+      context.read<ConnectedServerCubit>().connect();
+    }
+
+    void disconnect() {
+      context.read<ConnectedServerCubit>().disconnect();
     }
 
     return Scaffold(
@@ -35,7 +49,7 @@ class HomePage extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                if (connectedServer.isConnected)
+                if (connectedServer.server != null)
                   Text(
                     connectedServer.server!.name,
                     style: TextStyle(
@@ -43,29 +57,44 @@ class HomePage extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   )
-                else if (connectedServer.isLoading)
-                  const CircularProgressIndicator()
                 else
-                  const Text(
-                    LangEN.notConnected,
+                  Text(
+                    LangEN.notSelected,
                     style: TextStyle(
                         // fontSize: 20,
                         // fontWeight: FontWeight.bold,
                         ),
-                  )
+                  ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  '${LangEN.vpnStage}:',
+                  style: TextStyle(fontSize: 20),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  connectedServer.vpnstage.name,
+                  style: TextStyle(
+                      // fontSize: 20,
+                      // fontWeight: FontWeight.bold,
+                      ),
+                ),
               ],
             ),
           ),
           Expanded(
             flex: 5,
             child: Center(
-                child: (connectedServer.isConnected)
+                child: (connectedServer.vpnstage == VPNStage.connected)
                     ? ElevatedButton(
-                        onPressed: openServerList,
+                        onPressed: disconnect,
                         child: const Text(LangEN.disconnect),
                       )
                     : ElevatedButton(
-                        onPressed: openServerList,
+                        onPressed: connect,
                         child: const Text(LangEN.connect),
                       )),
           ),
