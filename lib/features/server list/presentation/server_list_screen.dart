@@ -10,9 +10,19 @@ class ServerListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void refreshList() {
+      context.read<ServerListCubit>().getServerList();
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(LangEN.serverListTitle),
+        actions: [
+          IconButton(
+            onPressed: refreshList,
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
       ),
       body: FutureBuilder(
           future: context.watch<ServerListCubit>().state,
