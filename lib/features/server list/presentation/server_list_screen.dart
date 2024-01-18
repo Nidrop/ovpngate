@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ovpngate/core/domain/entity/server_info.dart';
@@ -10,18 +11,36 @@ class ServerListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void refreshList() {
-      context.read<ServerListCubit>().getServerList();
+    //TODO refactor
+    void refreshList({bool forceRefresh = false}) {
+      context.read<ServerListCubit>().getServerList(forceRefresh: forceRefresh);
     }
 
     return Scaffold(
       appBar: AppBar(
         title: const Text(LangEN.serverListTitle),
         actions: [
-          IconButton(
-            onPressed: refreshList,
-            icon: const Icon(Icons.refresh),
-          ),
+          (!kReleaseMode)
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        //debug refresh from cache
+                        refreshList(forceRefresh: false);
+                      },
+                      icon: const Icon(Icons.arrow_upward),
+                    ),
+                    IconButton(
+                      onPressed: () => refreshList(forceRefresh: true),
+                      icon: const Icon(Icons.refresh),
+                    ),
+                  ],
+                )
+              : IconButton(
+                  onPressed: refreshList,
+                  icon: const Icon(Icons.refresh),
+                ),
         ],
       ),
       body: FutureBuilder(

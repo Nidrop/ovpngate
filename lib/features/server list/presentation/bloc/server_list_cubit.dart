@@ -5,9 +5,15 @@ import 'package:ovpngate/features/server%20list/data/repository/vpngate_reposito
 class ServerListCubit extends Cubit<Future<List<ServerInfo>>> {
   final VpngateRepository repository;
 
-  ServerListCubit(this.repository) : super(repository.getServerList());
+  ServerListCubit(this.repository)
+      : super(repository.getServerList(forceRefresh: false));
 
-  void getServerList() {
-    emit(repository.getServerList());
+  void getServerList({bool forceRefresh = false}) {
+    emit(repository.getServerList(forceRefresh: forceRefresh));
   }
+
+  void debugGetServerList(
+      {bool forceRefresh = false, required String relativePath}) {}
+
+  void debugSaveServerList({required String relativePath}) {}
 }
