@@ -88,15 +88,16 @@ class HomePage extends StatelessWidget {
           Expanded(
             flex: 5,
             child: Center(
-                child: (connectedServer.vpnstage == VPNStage.connected)
-                    ? ElevatedButton(
-                        onPressed: disconnect,
-                        child: const Text(LangEN.disconnect),
-                      )
-                    : ElevatedButton(
-                        onPressed: connect,
-                        child: const Text(LangEN.connect),
-                      )),
+              child: (connectedServer.vpnstage == VPNStage.disconnected)
+                  ? ElevatedButton(
+                      onPressed: connect,
+                      child: const Text(LangEN.connect),
+                    )
+                  : ElevatedButton(
+                      onPressed: disconnect,
+                      child: const Text(LangEN.disconnect),
+                    ),
+            ),
           ),
         ],
       ),
