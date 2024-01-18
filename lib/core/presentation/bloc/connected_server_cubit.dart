@@ -32,6 +32,7 @@ class ConnectedServerCubit extends Cubit<ConnectedServerState> {
   void _onVpnStatusChanged(VpnStatus? vpnStatus) {}
 
   void _onVpnStageChanged(VPNStage stage, String rawStage) {
+    debugPrint('DEBUG: ' + rawStage);
     emit(ConnectedServerState(
       server: state.server,
       openvpn: _factoryCreateOpenvpn(),
@@ -42,11 +43,12 @@ class ConnectedServerCubit extends Cubit<ConnectedServerState> {
 
   String _configPatches(String ovpnConfig) {
     if (state.configCipherFix) {
-      debugPrint('PATCHED');
       //TODO: refactoring
-      return ovpnConfig.replaceAll(RegExp(r'cipher '), 'data-cipher');
+      final result = ovpnConfig.replaceAll(RegExp(r'cipher '), 'data-ciphers ');
+      debugPrint('PATCHED');
+      debugPrint(result);
+      return result;
     }
-    debugPrint('NOT PATCHED');
     return ovpnConfig;
   }
 
