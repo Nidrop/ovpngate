@@ -32,7 +32,7 @@ class ConnectedServerCubit extends Cubit<ConnectedServerState> {
   void _onVpnStatusChanged(VpnStatus? vpnStatus) {}
 
   void _onVpnStageChanged(VPNStage stage, String rawStage) {
-    debugPrint('DEBUG: ' + rawStage);
+    debugPrint('DEBUG: $rawStage');
     emit(ConnectedServerState(
       server: state.server,
       openvpn: _factoryCreateOpenvpn(),

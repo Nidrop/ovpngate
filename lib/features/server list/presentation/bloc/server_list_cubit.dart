@@ -12,6 +12,7 @@ class ServerListCubit extends Cubit<Future<List<ServerInfo>>> {
     emit(repository.getServerList(forceRefresh: forceRefresh));
   }
 
+  //TODO: remove debug
   void debugGetServerList(
       {bool forceRefresh = false, required String relativePath}) {}
 
