@@ -9,6 +9,7 @@ class ConnectedServerCubit extends Cubit<ConnectedServerState> {
       : super(
           ConnectedServerState(
             vpnstage: VPNStage.disconnected,
+            configCipherFix: true,
             openvpn: OpenVPN(),
           ),
         );

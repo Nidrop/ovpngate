@@ -11,6 +11,6 @@ class ConnectedServerState {
     required this.openvpn,
     this.server,
     required this.vpnstage,
-    this.configCipherFix = true,
+    required this.configCipherFix,
   });
 }
