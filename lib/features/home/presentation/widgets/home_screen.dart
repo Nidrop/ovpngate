@@ -69,13 +69,6 @@ class HomePage extends StatelessWidget {
                   height: 20,
                 ),
                 Text(
-                  '${LangEN.vpnStage}:',
-                  style: TextStyle(fontSize: 20),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
                   connectedServer.vpnstage.name,
                   style: TextStyle(
                       // fontSize: 20,
@@ -89,11 +82,14 @@ class HomePage extends StatelessWidget {
             flex: 5,
             child: Center(
               child: (connectedServer.vpnstage == VPNStage.disconnected)
-                  ? ElevatedButton(
+                  ? FilledButton(
                       onPressed: connect,
                       child: const Text(LangEN.connect),
                     )
-                  : ElevatedButton(
+                  : FilledButton(
+                      style: FilledButton.styleFrom(
+                        backgroundColor: Colors.redAccent,
+                      ),
                       onPressed: disconnect,
                       child: const Text(LangEN.disconnect),
                     ),
