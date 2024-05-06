@@ -1,4 +1,4 @@
-package com.example.ovpngate
+package net.ovpngate.ovpngate
 
 import android.content.Intent
 import io.flutter.embedding.android.FlutterActivity
