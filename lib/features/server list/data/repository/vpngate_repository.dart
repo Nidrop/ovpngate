@@ -13,10 +13,14 @@ class VpngateRepository {
     required this.localSource,
   });
 
-  Future<List<ServerInfo>> getServerList({required bool forceRefresh}) async {
+  Future<List<ServerInfo>> getServerList(
+      {bool forceRefresh = false, bool getCache = false}) async {
     //TODO refactor
+    assert((forceRefresh && getCache) != true);
+
     late List<ServerInfoDto> listDto;
-    if ((!await localSource.isFileRelevant()) || forceRefresh) {
+    final cacheIsRelevant = (await localSource.isFileRelevant()) || getCache;
+    if (!cacheIsRelevant || forceRefresh) {
       final String csv = await remoteSource.getServerListCSV();
       localSource.saveFile(contents: csv);
       listDto = ServerListMapper.stringToListServerInfoDto(rawCSV: csv);

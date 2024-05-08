@@ -12,35 +12,31 @@ class ServerListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //TODO refactor
-    void refreshList({bool forceRefresh = false}) {
-      context.read<ServerListCubit>().getServerList(forceRefresh: forceRefresh);
+    void refreshList({bool getCache = false}) {
+      if (getCache) {
+        context.read<ServerListCubit>().getServerList(getCache: true);
+        return;
+      }
+      context.read<ServerListCubit>().getServerList(forceRefresh: true);
     }
 
     return Scaffold(
       appBar: AppBar(
         title: const Text(LangEN.serverListTitle),
         actions: [
-          (!kReleaseMode)
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        //debug refresh from cache
-                        refreshList(forceRefresh: false);
-                      },
-                      icon: const Icon(Icons.arrow_upward),
-                    ),
-                    IconButton(
-                      onPressed: () => refreshList(forceRefresh: true),
-                      icon: const Icon(Icons.refresh),
-                    ),
-                  ],
+          (kDebugMode)
+              ? IconButton(
+                  onPressed: () {
+                    //get cached list
+                    refreshList(getCache: true);
+                  },
+                  icon: const Icon(Icons.cached),
                 )
-              : IconButton(
-                  onPressed: refreshList,
-                  icon: const Icon(Icons.refresh),
-                ),
+              : const SizedBox(),
+          IconButton(
+            onPressed: refreshList,
+            icon: const Icon(Icons.refresh),
+          ),
         ],
       ),
       body: FutureBuilder(
