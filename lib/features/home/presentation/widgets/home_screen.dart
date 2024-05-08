@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:openvpn_flutter/openvpn_flutter.dart';
 import 'package:ovpngate/core/lang/lang_en.dart';
 import 'package:ovpngate/core/presentation/bloc/connected_server_cubit.dart';
+import 'package:ovpngate/core/presentation/bloc/current_theme_cubit.dart';
 import 'package:ovpngate/features/server%20list/presentation/server_list_screen.dart';
 
 class HomePage extends StatelessWidget {
@@ -11,6 +12,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final connectedServer = context.watch<ConnectedServerCubit>().state;
+    final themeMode = context.watch<CurrentThemeCubit>().state;
 
     void openServerList() {
       Navigator.push(context,
@@ -30,9 +32,25 @@ class HomePage extends StatelessWidget {
       context.read<ConnectedServerCubit>().disconnect();
     }
 
+    void changeTheme() {
+      context.read<CurrentThemeCubit>().toggleMode();
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(LangEN.homeTitle),
+        actions: [
+          IconButton(
+            onPressed: changeTheme,
+            icon: Icon(
+              switch (themeMode) {
+                ThemeMode.system => Icons.light_mode,
+                ThemeMode.light => Icons.dark_mode,
+                ThemeMode.dark => Icons.phone_android,
+              },
+            ),
+          ),
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -88,7 +106,7 @@ class HomePage extends StatelessWidget {
                     )
                   : FilledButton(
                       style: FilledButton.styleFrom(
-                        backgroundColor: Colors.redAccent,
+                        backgroundColor: Theme.of(context).colorScheme.error,
                       ),
                       onPressed: disconnect,
                       child: const Text(LangEN.disconnect),

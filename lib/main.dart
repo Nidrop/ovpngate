@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ovpngate/core/lang/lang_en.dart';
 import 'package:ovpngate/core/presentation/bloc/connected_server_cubit.dart';
+import 'package:ovpngate/core/presentation/bloc/current_theme_cubit.dart';
 import 'package:ovpngate/features/home/presentation/widgets/home_screen.dart';
 import 'package:ovpngate/features/server%20list/data/data%20source/vpngate_local_source.dart';
 import 'package:ovpngate/features/server%20list/data/data%20source/vpngate_remote_source.dart';
@@ -32,14 +33,27 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => ConnectedServerCubit(),
           ),
-        ],
-        child: MaterialApp(
-          title: LangEN.homeTitle,
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-            useMaterial3: true,
+          BlocProvider(
+            create: (context) => CurrentThemeCubit(),
           ),
-          home: const HomePage(),
+        ],
+        child: BlocBuilder<CurrentThemeCubit, ThemeMode>(
+          builder: (context, state) => MaterialApp(
+            title: LangEN.homeTitle,
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+              useMaterial3: true,
+            ),
+            darkTheme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: Colors.blue,
+                brightness: Brightness.dark,
+              ),
+              useMaterial3: true,
+            ),
+            themeMode: state,
+            home: const HomePage(),
+          ),
         ),
       ),
     );
