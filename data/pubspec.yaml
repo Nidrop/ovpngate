@@ -1,0 +1,30 @@
+name: data
+version: 0.0.1
+publish_to: none
+description: Project data module
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  core:
+    path: ../core
+  domain:
+    path: ../domain
+  
+  retrofit: ^4.1.0
+  json_annotation: ^4.9.0
+  csv: ^6.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+  build_runner: ^2.4.8
+  retrofit_generator: '>=7.0.0 <8.0.0'
+  json_serializable: ^6.6.2
+
+flutter:

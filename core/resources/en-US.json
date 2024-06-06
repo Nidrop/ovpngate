@@ -1,0 +1,13 @@
+{
+  "common" : {
+    "oVPNGate" : "oVPNGate",
+    "vpnServer" : "VPN Server",
+    "notSelected" : "not selected",
+    "connect" : "connect",
+    "disconnect" : "disconnect",
+    "serverList" : "server list",
+    "sessions" : "sessions",
+    "days" : "days",
+    "mbps" : "Mbps"
+  }
+}
