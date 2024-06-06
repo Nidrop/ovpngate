@@ -46,16 +46,16 @@ sealed class ServerListMapper {
     return list;
   }
 
-  static List<ServerInfo> listServerInfoDtoToEntities({
+  static List<ServerInfo> listServerInfoDtoToModel({
     required List<ServerInfoDto> listDto,
   }) {
     return List.generate(
       listDto.length,
       (index) => ServerInfo(
-        speed: listDto[index].speed,
+        speed: (listDto[index].speed / 1000 / 1000).round(),
         countryShort: listDto[index].countryShort,
         sessions: listDto[index].numVpnSessions,
-        uptime: listDto[index].uptime,
+        uptime: (listDto[index].uptime / 1000 / 60 / 60 / 24).round(),
         name: listDto[index].hostName,
         ovpnConfig:
             utf8.decode(base64Decode(listDto[index].openVPNConfigDataBase64)),

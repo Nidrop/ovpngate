@@ -59,15 +59,9 @@ class ServerListScreen extends StatelessWidget {
                       return ServerListItem(
                         server: ServerInfo(
                           countryShort: snapshot.data![index].countryShort,
-                          speed: (snapshot.data![index].speed / 1000 / 1000)
-                              .round(),
+                          speed: snapshot.data![index].speed,
                           sessions: snapshot.data![index].sessions,
-                          uptime: (snapshot.data![index].uptime /
-                                  1000 /
-                                  60 /
-                                  60 /
-                                  24)
-                              .round(),
+                          uptime: snapshot.data![index].uptime ,
                           name: snapshot.data![index].name,
                           ovpnConfig: snapshot.data![index].ovpnConfig,
                         ),

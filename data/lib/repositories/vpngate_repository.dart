@@ -32,7 +32,7 @@ class VpngateRepository implements IRepository {
     // }
 
     final List<ServerInfo> result =
-        ServerListMapper.listServerInfoDtoToEntities(listDto: dto);
+        ServerListMapper.listServerInfoDtoToModel(listDto: dto);
     return result;
   }
 }
