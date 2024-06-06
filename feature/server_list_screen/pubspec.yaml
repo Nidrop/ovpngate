@@ -19,6 +19,9 @@ dependencies:
   navigation:
     path: ../../navigation
 
+  # TODO: remove
+  easy_localization: ^3.0.7
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

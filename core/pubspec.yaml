@@ -22,7 +22,7 @@ dependencies:
   logger: ^2.0.2
   flutter_bloc: ^8.1.4
   path_provider: ^2.1.3
-  easy_localization: ^3.0.7
+  # easy_localization: ^3.0.7
 
 dev_dependencies:
   flutter_test:
@@ -31,4 +31,6 @@ dev_dependencies:
   flutter_lints: ^3.0.1
 
 flutter:
+  # assets:
+  #   - resources/langs/
 

@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:core/localization/generated/locale_keys.g.dart';
 import 'package:domain/models/server_info.dart';
 import 'package:domain/repositories/i_repository.dart';
 import 'package:flutter/foundation.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:server_list_screen/bloc/server_list_cubit.dart';
 import 'package:server_list_screen/widgets/server_list_item.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ServerListScreen extends StatelessWidget {
   const ServerListScreen({super.key});
@@ -24,7 +26,9 @@ class ServerListScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           // title: const Text(LangEN.serverListTitle),
-          title: const Text('server list title'),
+          title: Builder(builder: (context) {
+            return Text(context.tr(LocaleKeys.common_oVPNGate));
+          }),
           actions: [
             (kDebugMode)
                 ? IconButton(
@@ -41,10 +45,10 @@ class ServerListScreen extends StatelessWidget {
             ),
           ],
         ),
-        body: BlocBuilder<ServerListCubit, Future<List<ServerInfo>>>(
+        body: Text(
+            'F') /*BlocBuilder<ServerListCubit, Future<List<ServerInfo>>>(
             builder: (context, state) {
           return FutureBuilder(
-              // future: context.watch<ServerListCubit>().state,
               future: state,
               builder: (_, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -77,12 +81,14 @@ class ServerListScreen extends StatelessWidget {
                   return const Text('None');
                 }
               });
-        }),
+        })*/
+        ,
       ),
     );
   }
 }
 
+//TODO: move outside
 class BlocDI extends StatelessWidget {
   const BlocDI({required this.child, super.key});
 
@@ -111,7 +117,10 @@ class BlocDI extends StatelessWidget {
           // builder: (context, state) =>
           MaterialApp(
         // title: LangEN.homeTitle,
-        title: 'oVPNGate',
+        title: 'no title',
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
         // theme: ThemeData(
         //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         //   useMaterial3: true,
