@@ -16,7 +16,7 @@ class DataDI {
     _initApi();
   }
 
-  void _initDio() {
+  void _initDio() async {
     appLocator.registerLazySingleton<DioConfig>(
       () => DioConfig(
         appConfig: appLocator<AppConfig>(),

@@ -1,4 +1,5 @@
 import 'package:core/localization/app_localization.dart';
+import 'package:data/di/data_di.dart';
 import 'package:flutter/material.dart';
 import 'package:server_list_screen/server_list_screen.dart';
 import 'package:core/core.dart';
@@ -24,4 +25,6 @@ void _setupDI() {
       AppDI.initDependencies();
     },
   );
+
+  dataDI.initDependencies();
 }

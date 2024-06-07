@@ -45,8 +45,7 @@ class ServerListScreen extends StatelessWidget {
             ),
           ],
         ),
-        body: Text(
-            'F') /*BlocBuilder<ServerListCubit, Future<List<ServerInfo>>>(
+        body: BlocBuilder<ServerListCubit, Future<List<ServerInfo>>>(
             builder: (context, state) {
           return FutureBuilder(
               future: state,
@@ -61,7 +60,7 @@ class ServerListScreen extends StatelessWidget {
                           countryShort: snapshot.data![index].countryShort,
                           speed: snapshot.data![index].speed,
                           sessions: snapshot.data![index].sessions,
-                          uptime: snapshot.data![index].uptime ,
+                          uptime: snapshot.data![index].uptime,
                           name: snapshot.data![index].name,
                           ovpnConfig: snapshot.data![index].ovpnConfig,
                         ),
@@ -75,8 +74,7 @@ class ServerListScreen extends StatelessWidget {
                   return const Text('None');
                 }
               });
-        })*/
-        ,
+        }),
       ),
     );
   }

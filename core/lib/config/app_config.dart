@@ -7,11 +7,13 @@ class AppConfig {
   final Flavor flavor;
   final String baseUrl;
   final String webSocketUrl;
+  final String cachePath;
 
   AppConfig({
     required this.flavor,
     required this.baseUrl,
     required this.webSocketUrl,
+    required this.cachePath,
   });
 
   // factory AppConfig.fromFlavor(Flavor flavor) {

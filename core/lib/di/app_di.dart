@@ -1,4 +1,4 @@
-import 'package:data/data.dart';
+import 'package:core/core.dart';
 import 'package:get_it/get_it.dart';
 
 import '../config/app_config.dart';
@@ -9,16 +9,15 @@ final GetIt appLocator = GetIt.instance;
 const String unauthScope = 'unauthScope';
 
 class AppDI {
-  static void initDependencies() {
+  static Future<void> initDependencies() async {
     appLocator.registerSingleton<AppConfig>(
       AppConfig(
         flavor: Flavor.canary,
         //TODO: fix hardcoded url
         baseUrl: 'https://www.vpngate.net',
         webSocketUrl: '',
+        cachePath: await AppPaths.getCacheDirPath(),
       ),
     );
-
-    dataDI.initDependencies();
   }
 }
