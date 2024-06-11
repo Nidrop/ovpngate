@@ -134,7 +134,7 @@ packages:
     source: path
     version: "0.0.1"
   easy_localization:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: easy_localization
       sha256: fa59bcdbbb911a764aa6acf96bbb6fa7a5cf8234354fc45ec1a43a0349ef0201
@@ -344,6 +344,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  openvpn_flutter:
+    dependency: transitive
+    description:
+      name: openvpn_flutter
+      sha256: "1cf224ca744612293753e95897153ef40d73537b599fc8bcec60476f08c63ec6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.2"
   path:
     dependency: transitive
     description:
@@ -448,6 +456,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.0"
+  server_info_screen:
+    dependency: "direct main"
+    description:
+      path: "../server_info_screen"
+      relative: true
+    source: path
+    version: "0.0.1"
   shared_preferences:
     dependency: transitive
     description:

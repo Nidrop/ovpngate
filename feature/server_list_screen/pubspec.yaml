@@ -18,9 +18,11 @@ dependencies:
     path: ../../core_ui
   navigation:
     path: ../../navigation
+  server_info_screen:
+    path: ../server_info_screen
 
   # TODO: remove
-  easy_localization: ^3.0.7
+  # easy_localization: ^3.0.7
 
 dev_dependencies:
   flutter_test:

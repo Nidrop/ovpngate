@@ -21,9 +21,9 @@ flutter clean
 allDirs "runGet"
 
 # generate localization keys
-# cd "core" || exit
-# flutter pub run easy_localization:generate -S resources/langs -f keys -o locale_keys.g.dart -O lib/localization/generated
-flutter pub run easy_localization:generate -S core/resources/langs -f keys -o locale_keys.g.dart -O core/lib/localization/generated
+cd "core" || exit
+flutter pub run easy_localization:generate -S resources/langs -f keys -o locale_keys.g.dart -O lib/localization/generated
+# flutter pub run easy_localization:generate -S core/resources/langs -f keys -o locale_keys.g.dart -O core/lib/localization/generated
 
 # generate data layer files
 cd "../data" || exit

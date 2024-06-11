@@ -17,6 +17,9 @@ dependencies:
   navigation:
     path: ../navigation
   flutter_svg: ^2.0.9
+  # easy_localization: ^3.0.7
+  server_list_screen:
+    path: ../feature/server_list_screen
 
 dev_dependencies:
   flutter_test:
