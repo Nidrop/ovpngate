@@ -1,11 +1,6 @@
-import 'dart:io';
-
 import 'package:core/core.dart';
 import 'package:core_ui/src/widgets/core_bloc_di/connected_server_state.dart';
 import 'package:domain/models/server_info.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:openvpn_flutter/openvpn_flutter.dart';
 
 class ConnectedServerCubit extends Cubit<ConnectedServerState> {
   ConnectedServerCubit()

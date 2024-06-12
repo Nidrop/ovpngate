@@ -1,6 +1,6 @@
 import 'package:data/entities/server_info_dto.dart';
 import 'package:data/mapper/server_list_mapper.dart';
-import 'package:dio/dio.dart';
+import 'package:core/core.dart';
 
 class VpngateRemoteSource {
   final String baseURL = 'http://www.vpngate.net';

@@ -1,6 +1,6 @@
 import 'package:domain/models/server_info.dart';
 import 'package:domain/repositories/i_repository.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:core/core.dart';
 
 class ServerListCubit extends Cubit<Future<List<ServerInfo>>> {
   final IRepository repository;

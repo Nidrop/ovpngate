@@ -1,11 +1,9 @@
 import 'package:core/localization/generated/locale_keys.g.dart';
-import 'package:core_ui/core_ui.dart';
+import 'package:core/core.dart';
 import 'package:domain/models/server_info.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:server_info_screen/server_info_screen.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class ServerListItem extends StatelessWidget {
   final ServerInfo server;

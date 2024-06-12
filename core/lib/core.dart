@@ -1,6 +1,9 @@
 library core;
 
 export 'package:dio/dio.dart';
+export 'package:flutter_bloc/flutter_bloc.dart';
+export 'package:easy_localization/easy_localization.dart';
+export 'package:openvpn_flutter/openvpn_flutter.dart';
 
 export 'config/app_config.dart';
 export 'config/network/dio_config.dart';

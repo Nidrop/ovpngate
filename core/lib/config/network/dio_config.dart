@@ -2,9 +2,6 @@ import 'dart:async';
 
 import 'package:core/config/network/interceptors/cache_interceptor.dart';
 import 'package:core/core.dart';
-import 'package:dio/dio.dart';
-import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
-import 'package:dio_cache_interceptor_file_store/dio_cache_interceptor_file_store.dart';
 import '../app_config.dart';
 import 'interceptors/dio_log_interceptor.dart';
 

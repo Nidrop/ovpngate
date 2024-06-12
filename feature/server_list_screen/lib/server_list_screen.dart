@@ -1,15 +1,12 @@
 import 'package:core/core.dart';
 import 'package:core/localization/generated/locale_keys.g.dart';
 import 'package:domain/models/server_info.dart';
-import 'package:domain/repositories/i_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:server_list_screen/bloc/server_list_cubit.dart';
 import 'package:server_list_screen/widgets/bloc_di.dart';
 import 'package:server_list_screen/widgets/server_list_item.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:auto_route/annotations.dart';
+import 'package:navigation/navigation.dart';
 
 @RoutePage()
 class ServerListScreen extends StatelessWidget {

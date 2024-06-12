@@ -1,5 +1,5 @@
 import 'package:domain/models/server_info.dart';
-import 'package:openvpn_flutter/openvpn_flutter.dart';
+import 'package:core/core.dart';
 
 class ConnectedServerState {
   final OpenVPN openvpn;

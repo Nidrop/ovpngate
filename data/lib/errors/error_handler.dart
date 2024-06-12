@@ -1,6 +1,5 @@
-import 'package:dio/dio.dart';
+import 'package:core/core.dart';
 import 'package:domain/domain.dart';
-
 
 class ErrorHandler {
   Future<Never> handleError(DioException error) async {

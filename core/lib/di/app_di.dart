@@ -1,6 +1,5 @@
 import 'package:core/core.dart';
 import 'package:get_it/get_it.dart';
-import 'package:openvpn_flutter/openvpn_flutter.dart';
 
 import '../config/app_config.dart';
 
