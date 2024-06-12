@@ -2,6 +2,7 @@ import 'package:core_ui/core_ui.dart';
 import 'package:data/di/data_di.dart';
 import 'package:flutter/material.dart';
 import 'package:core/core.dart';
+import 'package:navigation/navigation.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,4 +21,5 @@ void _setupDI() {
   );
 
   dataDI.initDependencies();
+  setupNavigationDependencies();
 }

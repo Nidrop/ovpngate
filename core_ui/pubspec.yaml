@@ -17,8 +17,9 @@ dependencies:
   navigation:
     path: ../navigation
   flutter_svg: ^2.0.9
-  server_list_screen:
-    path: ../feature/server_list_screen
+  # TODO delete
+  server_list:
+    path: ../feature/server_list
 
 dev_dependencies:
   flutter_test:

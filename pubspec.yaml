@@ -40,12 +40,12 @@ dependencies:
     path: ./data
   navigation:
     path: ./navigation
-  server_list_screen:
-    path: ./feature/server_list_screen
-  server_info_screen:
-    path: ./feature/server_info_screen
-  settings_screen:
-    path: ./feature/settings_screen
+  server_list:
+    path: ./feature/server_list
+  server_info:
+    path: ./feature/server_info
+  settings:
+    path: ./feature/settings
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -61,6 +61,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
+  build_runner: ^2.4.11
+  auto_route_generator: ^8.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

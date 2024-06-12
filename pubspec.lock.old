@@ -68,14 +68,14 @@ packages:
   core:
     dependency: "direct main"
     description:
-      path: "../../core"
+      path: core
       relative: true
     source: path
     version: "0.0.1"
   core_ui:
     dependency: "direct main"
     description:
-      path: "../../core_ui"
+      path: core_ui
       relative: true
     source: path
     version: "0.0.1"
@@ -95,10 +95,18 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.0"
-  data:
-    dependency: transitive
+  cupertino_icons:
+    dependency: "direct main"
     description:
-      path: "../../data"
+      name: cupertino_icons
+      sha256: ba631d1c7f7bef6b729a622b7b752645a2d076dba9976925b8f25725a30e1ee6
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.8"
+  data:
+    dependency: "direct main"
+    description:
+      path: data
       relative: true
     source: path
     version: "0.0.1"
@@ -129,7 +137,7 @@ packages:
   domain:
     dependency: "direct main"
     description:
-      path: "../../domain"
+      path: domain
       relative: true
     source: path
     version: "0.0.1"
@@ -229,18 +237,18 @@ packages:
     dependency: transitive
     description:
       name: get_it
-      sha256: e6017ce7fdeaf218dc51a100344d8cb70134b80e28b760f8bb23c242437bafd7
+      sha256: d85128a5dae4ea777324730dc65edd9c9f43155c109d5cc0a69cab74139fbac1
       url: "https://pub.dev"
     source: hosted
-    version: "7.6.7"
+    version: "7.7.0"
   http:
     dependency: transitive
     description:
       name: http
-      sha256: a2bbf9d017fcced29139daa8ed2bba4ece450ab222871df93ca9eec6f80c34ba
+      sha256: "761a297c042deedc1ffbb156d6e2af13886bb305c2a343a4d972504cd67dd938"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.0"
+    version: "1.2.1"
   http_parser:
     dependency: transitive
     description:
@@ -332,7 +340,7 @@ packages:
   navigation:
     dependency: "direct main"
     description:
-      path: "../../navigation"
+      path: navigation
       relative: true
     source: path
     version: "0.0.0"
@@ -456,10 +464,24 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.0"
-  server_list_screen:
-    dependency: transitive
+  server_info_screen:
+    dependency: "direct main"
     description:
-      path: "../server_list_screen"
+      path: "feature/server_info_screen"
+      relative: true
+    source: path
+    version: "0.0.1"
+  server_list_screen:
+    dependency: "direct main"
+    description:
+      path: "feature/server_list_screen"
+      relative: true
+    source: path
+    version: "0.0.1"
+  settings_screen:
+    dependency: "direct main"
+    description:
+      path: "feature/settings_screen"
       relative: true
     source: path
     version: "0.0.1"
@@ -507,10 +529,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_web
-      sha256: "7b15ffb9387ea3e237bb7a66b8a23d2147663d391cafc5c8f37b2e7b4bde5d21"
+      sha256: "9aee1089b36bd2aafe06582b7d7817fd317ef05fc30e6ba14bff247d0933042a"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.2"
+    version: "2.3.0"
   shared_preferences_windows:
     dependency: transitive
     description:
@@ -648,10 +670,10 @@ packages:
     dependency: transitive
     description:
       name: web
-      sha256: afe077240a270dcfd2aafe77602b4113645af95d0ad31128cc02bce5ac5d5152
+      sha256: "97da13628db363c635202ad97068d47c5b8aa555808e7a9411963c533b449b27"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.0"
+    version: "0.5.1"
   win32:
     dependency: transitive
     description:

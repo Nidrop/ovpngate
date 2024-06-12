@@ -1,7 +1,7 @@
 import 'package:core/core.dart';
 import 'package:domain/repositories/i_repository.dart';
 import 'package:flutter/widgets.dart';
-import 'package:server_list_screen/bloc/server_list_cubit.dart';
+import 'package:server_list/bloc/server_list_cubit.dart';
 
 class BlocDI extends StatelessWidget {
   const BlocDI({required this.child, super.key});

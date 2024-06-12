@@ -14,5 +14,8 @@ abstract class _$AppRouter extends RootStackRouter {
   _$AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, PageFactory> pagesMap = {};
+  final Map<String, PageFactory> pagesMap = {
+    ...ServerListModule().pagesMap,
+    ...ServerInfoModule().pagesMap,
+  };
 }

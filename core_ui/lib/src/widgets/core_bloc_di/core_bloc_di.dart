@@ -1,15 +1,12 @@
 import 'package:core/localization/app_localization.dart';
 import 'package:core_ui/src/widgets/core_bloc_di/connected_server_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:core/core.dart';
 import 'package:navigation/app_router/app_router.dart';
-import 'package:server_list_screen/server_list_screen.dart';
+import 'package:server_list/server_list_screen.dart';
 
 class CoreBlocDI extends StatelessWidget {
-  CoreBlocDI({super.key});
-
-  final _appRouter = AppRouter();
+  const CoreBlocDI({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,31 +29,20 @@ class CoreBlocDI extends StatelessWidget {
           // ),
         ],
         child: Builder(builder: (context) {
-          return MaterialApp(
-            // return MaterialApp.router(
+          // return MaterialApp(
+          return MaterialApp.router(
             // title: LangEN.homeTitle,
             title: 'no title',
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,
-            // routerConfig: _appRouter.config(),
-            home: ServerListScreen(),
-            // theme: ThemeData(
-            //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-            //   useMaterial3: true,
-            // ),
-            // darkTheme: ThemeData(
-            //   colorScheme: ColorScheme.fromSeed(
-            //     seedColor: Colors.blue,
-            //     brightness: Brightness.dark,
-            //   ),
-            //   useMaterial3: true,
-            // ),
-            // themeMode: state,
+            routerDelegate: appLocator.get<AppRouter>().delegate(),
+            routeInformationParser:
+                appLocator.get<AppRouter>().defaultRouteParser(),
+            // builder: (context, child) => child ?? const SizedBox(),
+            // home: const ServerListScreen(),
           );
         }),
-        // ),
-        // ),
       ),
     );
   }

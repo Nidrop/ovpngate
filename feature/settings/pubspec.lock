@@ -456,10 +456,17 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.0"
-  server_info_screen:
-    dependency: "direct main"
+  server_info:
+    dependency: transitive
     description:
-      path: "../server_info_screen"
+      path: "../server_info"
+      relative: true
+    source: path
+    version: "0.0.1"
+  server_list:
+    dependency: transitive
+    description:
+      path: "../server_list"
       relative: true
     source: path
     version: "0.0.1"

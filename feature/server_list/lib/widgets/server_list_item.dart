@@ -2,8 +2,9 @@ import 'package:core/localization/generated/locale_keys.g.dart';
 import 'package:core/core.dart';
 import 'package:domain/models/server_info.dart';
 import 'package:flutter/material.dart';
-import 'package:auto_route/auto_route.dart';
-import 'package:server_info_screen/server_info_screen.dart';
+import 'package:navigation/navigation.dart';
+
+import 'package:server_info/server_info.dart';
 
 class ServerListItem extends StatelessWidget {
   final ServerInfo server;
@@ -11,14 +12,13 @@ class ServerListItem extends StatelessWidget {
   const ServerListItem({super.key, required this.server});
 
   void connect(BuildContext context) {
-    // Navigator.pop(context);
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ServerInfoScreen(
-                  selectedServer: server,
-                )));
-    // context.router.push(ServerInfoRoute());
+    // Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //         builder: (context) => ServerInfoScreen(
+    //               selectedServer: server,
+    //             )));
+    context.router.push(ServerInfoRoute(selectedServer: server));
   }
 
   @override

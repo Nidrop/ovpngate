@@ -7,7 +7,13 @@
         {
             "name": "ovpngate_canary",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+        },
+        {
+            "name": "ovpngate_canary (debug mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug"
         },
         {
             "name": "ovpngate_canary (profile mode)",

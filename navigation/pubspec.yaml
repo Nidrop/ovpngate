@@ -10,6 +10,11 @@ dependencies:
   flutter:
     sdk: flutter
 
+  server_info:
+    path: ../feature/server_info
+  server_list:
+    path: ../feature/server_list
+
   core:
     path: ../core
   core_ui:
