@@ -8,18 +8,21 @@
             "name": "ovpngate_canary",
             "request": "launch",
             "type": "dart",
+            "program": "lib/main.dart"
         },
         {
             "name": "ovpngate_canary (debug mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "debug"
+            "flutterMode": "debug",
+            "program": "lib/main.dart"
         },
         {
             "name": "ovpngate_canary (profile mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "flutterMode": "profile",
+            "program": "lib/main.dart"
         },
         {
             "name": "ovpngate_canary (release mode)",
