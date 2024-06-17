@@ -19,13 +19,5 @@ class AppDI {
         cachePath: await AppPaths.getCacheDirPath(),
       ),
     );
-
-    // appLocator.registerLazySingleton<OpenVPN>(
-    //   () {
-    //     final openvpn = OpenVPN();
-    //     openvpn.initialize();
-    //     return openvpn;
-    //   },
-    // );
   }
 }

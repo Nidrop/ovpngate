@@ -1,13 +1,11 @@
 import 'package:core/core.dart';
 import 'package:core/localization/generated/locale_keys.g.dart';
 import 'package:domain/models/server_info.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:domain/repositories/i_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:server_list/bloc/server_list_cubit.dart';
 import 'package:server_list/bloc/server_list_state.dart';
-import 'package:server_list/widgets/bloc_di.dart';
 import 'package:navigation/navigation.dart';
 import 'package:server_list/widgets/server_list_item.dart';
 
@@ -25,13 +23,12 @@ class ServerListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocDI(
+    return BlocProvider(
+      create: (context) => ServerListCubit(appLocator.get<IRepository>()),
       child: Scaffold(
         appBar: AppBar(
           // title: const Text(LangEN.serverListTitle),
-          title: Builder(builder: (context) {
-            return Text(context.tr(LocaleKeys.common_serverList));
-          }),
+          title: Text(context.tr(LocaleKeys.common_serverList)),
           actions: [
             (kDebugMode)
                 ? IconButton(

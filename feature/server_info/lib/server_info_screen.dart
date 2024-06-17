@@ -1,9 +1,12 @@
 import 'package:core/localization/generated/locale_keys.g.dart';
 import 'package:domain/models/server_info.dart';
+import 'package:domain/repositories/i_vpn_service.dart';
 import 'package:flutter/material.dart';
 import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:navigation/navigation.dart';
+import 'package:server_info/bloc/server_info_cubit.dart';
+import 'package:server_info/bloc/server_info_state.dart';
 
 @RoutePage()
 class ServerInfoScreen extends StatelessWidget {
@@ -11,77 +14,88 @@ class ServerInfoScreen extends StatelessWidget {
 
   final ServerInfo selectedServer;
 
+  void connect(BuildContext context) {
+    context.read<ServerInfoCubit>().connect();
+  }
+
+  void disconnect(BuildContext context) {
+    context.read<ServerInfoCubit>().disconnect();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final connectedServer = context.watch<ConnectedServerCubit>().state;
-    final t = connectedServer.server == selectedServer;
-
-    void connect() {
-      context.read<ConnectedServerCubit>().connect(selectedServer);
-    }
-
-    void disconnect() {
-      context.read<ConnectedServerCubit>().disconnect();
-    }
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(context.tr(LocaleKeys.common_oVPNGate)),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            flex: 5,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  context.tr(LocaleKeys.common_vpnServer),
-                  style: TextStyle(fontSize: 20),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  selectedServer.name,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                if (connectedServer.server != null && t)
-                  Text(
-                    connectedServer.vpnstage.name,
-                    style: TextStyle(
-                        // fontSize: 20,
-                        // fontWeight: FontWeight.bold,
-                        ),
-                  )
-              ],
-            ),
-          ),
-          Expanded(
-            flex: 5,
-            child: Center(
-              child: (connectedServer.server == null || !t)
-                  ? FilledButton(
-                      onPressed: connect,
-                      child: Text(context.tr(LocaleKeys.common_connect)),
-                    )
-                  : FilledButton(
-                      style: FilledButton.styleFrom(
-                        backgroundColor: Theme.of(context).colorScheme.error,
-                      ),
-                      onPressed: disconnect,
-                      child: Text(context.tr(LocaleKeys.common_disconnect)),
+    return BlocProvider(
+      create: (BuildContext context) => ServerInfoCubit(
+          SelectedServerState(selectedServer: selectedServer),
+          vpnService: appLocator.get<IVpnService>()),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(context.tr(LocaleKeys.common_oVPNGate)),
+        ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              flex: 5,
+              child: BlocBuilder<ServerInfoCubit, ServerInfoState>(
+                  builder: (context, state) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      context.tr(LocaleKeys.common_vpnServer),
+                      style: TextStyle(fontSize: 20),
                     ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      selectedServer.name,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    if (state is ConnectedServerState &&
+                        state.connectedServer == state.selectedServer)
+                      Text(
+                        state.stage.name,
+                        style: TextStyle(
+                            // fontSize: 20,
+                            // fontWeight: FontWeight.bold,
+                            ),
+                      )
+                  ],
+                );
+              }),
             ),
-          ),
-        ],
+            Expanded(
+              flex: 5,
+              child: BlocBuilder<ServerInfoCubit, ServerInfoState>(
+                  builder: (context, state) {
+                return Center(
+                  child: (state is ConnectedServerState &&
+                          state.connectedServer == state.selectedServer)
+                      ? FilledButton(
+                          style: FilledButton.styleFrom(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.error,
+                          ),
+                          onPressed: () => disconnect(context),
+                          child: Text(context.tr(LocaleKeys.common_disconnect)),
+                        )
+                      : FilledButton(
+                          onPressed: () => connect(context),
+                          child: Text(context.tr(LocaleKeys.common_connect)),
+                        ),
+                );
+              }),
+            ),
+          ],
+        ),
       ),
     );
   }

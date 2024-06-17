@@ -651,6 +651,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "14.2.1"
+  vpn_info:
+    dependency: transitive
+    description:
+      name: vpn_info
+      sha256: "61b09f5b66816e69d6ba8a9dabc619e25d8ff94dfe41b38357c751e88f869dd7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   web:
     dependency: transitive
     description:

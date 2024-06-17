@@ -11,7 +11,7 @@ class ServerListItem extends StatelessWidget {
 
   const ServerListItem({super.key, required this.server});
 
-  void connect(BuildContext context) {
+  void select(BuildContext context) {
     // Navigator.push(
     //     context,
     //     MaterialPageRoute(
@@ -40,7 +40,7 @@ class ServerListItem extends StatelessWidget {
       ),
       // trailing: Text('${server.speed} ${LangEN.mbps}'),
       trailing: Text('${server.speed} ${context.tr(LocaleKeys.common_mbps)}'),
-      onTap: () => connect(context),
+      onTap: () => select(context),
     );
   }
 }

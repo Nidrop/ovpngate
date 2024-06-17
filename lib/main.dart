@@ -9,7 +9,7 @@ void main() async {
   await EasyLocalization.ensureInitialized();
 
   _setupDI();
-  runApp(CoreBlocDI());
+  runApp(const CoreUiDI());
 }
 
 void _setupDI() {

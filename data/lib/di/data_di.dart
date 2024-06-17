@@ -3,7 +3,9 @@ import 'package:core/config/network/dio_config.dart';
 
 import 'package:core/di/app_di.dart';
 import 'package:data/repositories/vpngate_repository.dart';
+import 'package:data/repositories/openvpn_service.dart';
 import 'package:domain/repositories/i_repository.dart';
+import 'package:domain/repositories/i_vpn_service.dart';
 
 import '../errors/error_handler.dart';
 import '../providers/api_provider.dart';
@@ -37,5 +39,7 @@ class DataDI {
 
     appLocator.registerLazySingleton<IRepository>(
         () => VpngateRepository(remoteSource: appLocator.get<ApiProvider>()));
+
+    appLocator.registerLazySingleton<IVpnService>(() => OpenvpnService());
   }
 }
