@@ -21,8 +21,8 @@ class ServerInfoCubit extends Cubit<ServerInfoState> {
         vpnService.stageStream.listen((stage) => _stageChanged(stage));
   }
 
-  void _stageChanged(VPNStage stage) {
-    if (stage == VPNStage.disconnected) {
+  void _stageChanged(EnVPNStage stage) {
+    if (stage == EnVPNStage.disconnected) {
       emit(SelectedServerState(selectedServer: state.selectedServer));
     } else if (state is ConnectedServerState) {
       final s = state as ConnectedServerState;

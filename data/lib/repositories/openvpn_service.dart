@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:core/core.dart';
+import 'package:data/mapper/openvpn_mapper.dart';
 import 'package:domain/models/server_info.dart';
 import 'package:domain/repositories/i_vpn_service.dart';
 
@@ -8,9 +9,9 @@ class OpenvpnService implements IVpnService {
   @override
   ServerInfo? server;
   @override
-  VPNStage vpnstage;
+  EnVPNStage vpnstage;
   @override
-  StreamController stageSC = StreamController<VPNStage>.broadcast();
+  StreamController stageSC = StreamController<EnVPNStage>.broadcast();
 
   @override
   Stream get stageStream => stageSC.stream;
@@ -20,7 +21,7 @@ class OpenvpnService implements IVpnService {
 
   OpenvpnService({
     this.configCipherFix = true,
-    this.vpnstage = VPNStage.unknown,
+    this.vpnstage = EnVPNStage.unknown,
   }) {
     openvpn = OpenVPN(
         onVpnStageChanged: _onVpnStageChanged,
@@ -29,7 +30,7 @@ class OpenvpnService implements IVpnService {
       localizedDescription: 'oVPNGate',
     );
     openvpn.stage().then((stage) {
-      stage = stage;
+      vpnstage = OpenvpnMapper.vpnstageToEnvpnstage(stage);
       server = (stage != VPNStage.disconnected)
           //TODO load server
           ? ServerInfo(
@@ -46,8 +47,8 @@ class OpenvpnService implements IVpnService {
   void _onVpnStatusChanged(VpnStatus? vpnStatus) {}
 
   void _onVpnStageChanged(VPNStage stage, String rawStage) {
-    vpnstage = stage;
-    stageSC.add(stage);
+    vpnstage = OpenvpnMapper.vpnstageToEnvpnstage(stage);
+    stageSC.add(vpnstage);
   }
 
   String _configPatches(String ovpnConfig) {

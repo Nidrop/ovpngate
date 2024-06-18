@@ -1,5 +1,5 @@
-import 'package:core/core.dart';
 import 'package:domain/models/server_info.dart';
+import 'package:domain/repositories/i_vpn_service.dart';
 
 sealed class ServerInfoState {
   final ServerInfo selectedServer;
@@ -15,7 +15,7 @@ class SelectedServerState extends ServerInfoState {
 
 class ConnectedServerState extends ServerInfoState {
   final ServerInfo connectedServer;
-  final VPNStage stage;
+  final EnVPNStage stage;
   // final VpnStatus status;
   ConnectedServerState({
     required super.selectedServer,
