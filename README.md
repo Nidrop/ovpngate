@@ -1,16 +1,23 @@
-# ovpngate_canary
+# oVPNGate
 
-A new Flutter project.
+Openvpn client for [vpngate.net](https://www.vpngate.net).
 
-## Getting Started
+## Building
 
-This project is a starting point for a Flutter application.
+### Install Flutter
 
-A few resources to get you started if this is your first Flutter project:
+Please refer to the [Flutter Official Documentation](https://flutter.dev/docs/get-started/install).
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Install dependencies
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+flutter pub get
+```
+
+### Build
+
+Android
+
+```bash
+flutter build apk
+```
