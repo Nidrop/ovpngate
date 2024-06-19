@@ -15,6 +15,7 @@ dependencies:
   domain:
     path: ../domain
   
+  openvpn_flutter: ^1.2.2
   retrofit: ^4.1.0
   json_annotation: ^4.9.0
   csv: ^6.0.0

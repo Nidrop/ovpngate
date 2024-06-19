@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:core/core.dart';
 import 'package:data/mapper/openvpn_mapper.dart';
 import 'package:domain/models/server_info.dart';
 import 'package:domain/repositories/i_vpn_service.dart';
+import 'package:openvpn_flutter/openvpn_flutter.dart';
 
 class OpenvpnService implements IVpnService {
   @override
