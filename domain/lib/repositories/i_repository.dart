@@ -4,7 +4,7 @@ abstract class IRepository {
   // final ApiProvider remoteSource;
 
   Future<List<ServerInfo>> getServerList({
-    bool forceRefresh = false,
-    bool getCache = false,
+    required bool forceRefresh,
+    required bool getCache,
   });
 }

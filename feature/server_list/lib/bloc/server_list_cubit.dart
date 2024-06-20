@@ -1,4 +1,3 @@
-import 'package:domain/models/server_info.dart';
 import 'package:domain/repositories/i_repository.dart';
 import 'package:core/core.dart';
 import 'package:server_list/bloc/server_list_state.dart';
@@ -16,7 +15,8 @@ class ServerListCubit extends Cubit<ServerListState> {
   }) async {
     emit(ServerListLoading());
     try {
-      final servers = await repository.getServerList();
+      final servers = await repository.getServerList(
+          forceRefresh: forceRefresh, getCache: getCache);
 
       emit(ServerListLoaded(servers: servers));
     } on Exception catch (e) {

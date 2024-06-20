@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'server_info_dto.g.dart';
+
+@JsonSerializable()
 class ServerInfoDto {
   final String hostName;
   final String ip;
@@ -32,4 +37,9 @@ class ServerInfoDto {
     required this.message,
     required this.openVPNConfigDataBase64,
   });
+
+  factory ServerInfoDto.fromJson(Map<String, dynamic> json) =>
+      _$ServerInfoDtoFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ServerInfoDtoToJson(this);
 }

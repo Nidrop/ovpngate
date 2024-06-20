@@ -25,7 +25,7 @@ class DioConfig {
         ErrorInterceptor(_dio),
         ResponseInterceptor(_dio),
         dioLoggerInterceptor,
-        CacheInterceptor(cachePath: appConfig.cachePath),
+        // CacheInterceptor(cachePath: appConfig.cachePath),
       ]);
   }
 

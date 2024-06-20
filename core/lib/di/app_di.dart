@@ -13,9 +13,7 @@ class AppDI {
     appLocator.registerSingleton<AppConfig>(
       AppConfig(
         flavor: Flavor.canary,
-        //TODO: fix hardcoded url
         baseUrl: 'https://www.vpngate.net',
-        webSocketUrl: '',
         cachePath: await AppPaths.getCacheDirPath(),
       ),
     );
