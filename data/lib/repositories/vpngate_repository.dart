@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:core/core.dart';
 import 'package:data/entities/server_info_dto.dart';
 import 'package:data/mapper/server_list_mapper.dart';
 import 'package:data/providers/api_provider.dart';
@@ -21,16 +22,17 @@ class VpngateRepository implements IRepository {
       {required bool forceRefresh, required bool getCache}) async {
     assert((forceRefresh && getCache) != true);
 
-    const cacheKey = 'vpngate-list.json';
     List<ServerInfoDto> dto;
 
-    final dtoString = await localProvider.read(cacheKey);
+    final dtoString =
+        await localProvider.read(StorageConstants.cachedServerListFile);
     if ((dtoString == null || forceRefresh) &&
         (dtoString == null || !getCache)) {
       dto = ServerListMapper.stringToListServerInfoDto(
         rawCSV: await remoteProvider.getServerListString(),
       );
-      localProvider.write(key: cacheKey, value: jsonEncode(dto));
+      localProvider.write(
+          key: StorageConstants.cachedServerListFile, value: jsonEncode(dto));
     } else {
       final List<dynamic> jsonList = jsonDecode(dtoString);
       dto = [for (final e in jsonList) ServerInfoDto.fromJson(e)];
