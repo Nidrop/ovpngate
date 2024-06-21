@@ -15,6 +15,7 @@ class AppDI {
         flavor: Flavor.canary,
         baseUrl: 'https://www.vpngate.net',
         cachePath: await AppPaths.getCacheDirPath(),
+        configPath: await AppPaths.getConfigDirPath(),
       ),
     );
   }

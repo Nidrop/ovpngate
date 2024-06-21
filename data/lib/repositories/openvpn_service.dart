@@ -1,6 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:core/core.dart';
 import 'package:data/mapper/openvpn_mapper.dart';
+import 'package:data/mapper/server_info_mapper.dart';
+import 'package:data/providers/local_data_provider.dart';
 import 'package:domain/models/server_info.dart';
 import 'package:domain/repositories/i_vpn_service.dart';
 import 'package:openvpn_flutter/openvpn_flutter.dart';
@@ -16,31 +20,27 @@ class OpenvpnService implements IVpnService {
   @override
   Stream get stageStream => stageSC.stream;
 
+  final LocalDataProvider localStorage;
   late final OpenVPN openvpn;
   bool configCipherFix;
 
   OpenvpnService({
     this.configCipherFix = true,
     this.vpnstage = EnVPNStage.unknown,
+    required this.localStorage,
   }) {
     openvpn = OpenVPN(
-        onVpnStageChanged: _onVpnStageChanged,
-        onVpnStatusChanged: _onVpnStatusChanged);
+      // onVpnStatusChanged: _onVpnStatusChanged,
+      onVpnStageChanged: _onVpnStageChanged,
+    );
     openvpn.initialize(
       localizedDescription: 'oVPNGate',
     );
     openvpn.stage().then((stage) {
-      vpnstage = OpenvpnMapper.vpnstageToEnvpnstage(stage);
-      server = (stage != VPNStage.disconnected)
-          //TODO load server
-          ? ServerInfo(
-              speed: -1,
-              countryShort: "",
-              sessions: -1,
-              uptime: -1,
-              name: "",
-              ovpnConfig: "")
-          : null;
+      readLastConnectedServer().then((lastServer) {
+        vpnstage = OpenvpnMapper.vpnstageToEnvpnstage(stage);
+        server = (stage != VPNStage.disconnected) ? lastServer : null;
+      });
     });
   }
 
@@ -57,6 +57,24 @@ class OpenvpnService implements IVpnService {
       return result;
     }
     return ovpnConfig;
+  }
+
+  Future<ServerInfo?> readLastConnectedServer() async {
+    final str = await localStorage.read(StorageConstants.currentVpnSessionFile);
+    if (str == null) return null;
+    return ServerInfo(
+      speed: -1,
+      countryShort: '',
+      sessions: -1,
+      uptime: -1,
+      name: str,
+      ovpnConfig: '',
+    );
+  }
+
+  Future<void> saveConnectedServer({required ServerInfo server}) async {
+    localStorage.write(
+        key: StorageConstants.currentVpnSessionFile, value: server.name);
   }
 
   void setConfigCipherFix(bool value) {
@@ -76,8 +94,8 @@ class OpenvpnService implements IVpnService {
       certIsRequired: true,
     );
 
-    //TODO save server
     this.server = server;
+    saveConnectedServer(server: server);
   }
 
   @override

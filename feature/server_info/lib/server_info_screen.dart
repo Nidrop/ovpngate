@@ -60,7 +60,7 @@ class ServerInfoScreen extends StatelessWidget {
                       height: 20,
                     ),
                     if (state is ConnectedServerState &&
-                        state.connectedServer == state.selectedServer)
+                        state.connectedServer.name == state.selectedServer.name)
                       Text(
                         state.stage.name,
                         style: TextStyle(
@@ -78,7 +78,8 @@ class ServerInfoScreen extends StatelessWidget {
                   builder: (context, state) {
                 return Center(
                   child: (state is ConnectedServerState &&
-                          state.connectedServer == state.selectedServer)
+                          state.connectedServer.name ==
+                              state.selectedServer.name)
                       ? FilledButton(
                           style: FilledButton.styleFrom(
                             backgroundColor:

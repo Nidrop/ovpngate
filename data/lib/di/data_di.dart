@@ -17,6 +17,7 @@ class DataDI {
   void initDependencies() {
     _initDio();
     _initApi();
+    _initService();
   }
 
   void _initDio() {
@@ -38,16 +39,25 @@ class DataDI {
       ),
     );
 
-    appLocator.registerLazySingleton<LocalDataProvider>(
+    appLocator.registerLazySingleton<LocalCacheProviderImpl>(
       () => LocalCacheProviderImpl(appConfig: appLocator<AppConfig>()),
     );
 
     appLocator.registerLazySingleton<IRepository>(
       () => VpngateRepository(
           remoteProvider: appLocator.get<ApiProvider>(),
-          localProvider: appLocator.get<LocalDataProvider>()),
+          localProvider: appLocator.get<LocalCacheProviderImpl>()),
+    );
+  }
+
+  void _initService() {
+    appLocator.registerLazySingleton<LocalConfigProviderImpl>(
+      () => LocalConfigProviderImpl(appConfig: appLocator<AppConfig>()),
     );
 
-    appLocator.registerLazySingleton<IVpnService>(() => OpenvpnService());
+    appLocator.registerLazySingleton<IVpnService>(
+      () => OpenvpnService(
+          localStorage: appLocator.get<LocalConfigProviderImpl>()),
+    );
   }
 }

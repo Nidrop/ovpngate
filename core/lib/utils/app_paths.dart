@@ -13,4 +13,15 @@ sealed class AppPaths {
     }
     return (await getApplicationCacheDirectory()).path;
   }
+
+  static Future<String> getConfigDirPath() async {
+    Directory? dir;
+    if (Platform.isAndroid) {
+      dir = await getExternalStorageDirectory();
+      if (dir != null) {
+        return dir.path;
+      }
+    }
+    return (await getApplicationSupportDirectory()).path;
+  }
 }
