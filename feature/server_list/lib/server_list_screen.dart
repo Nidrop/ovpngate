@@ -9,8 +9,6 @@ import 'package:server_list/bloc/server_list_state.dart';
 import 'package:navigation/navigation.dart';
 import 'package:server_list/widgets/server_list_item.dart';
 
-import 'package:settings/settings.dart';
-
 @RoutePage()
 class ServerListScreen extends StatelessWidget {
   const ServerListScreen({super.key});
@@ -24,7 +22,10 @@ class ServerListScreen extends StatelessWidget {
   }
 
   void openSettings(BuildContext context) {
-    context.router.push(SettingsRoute());
+    AppRouter.pushNamedCustom(
+      route: AppRoutes.settings,
+      context: context,
+    );
   }
 
   @override

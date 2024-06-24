@@ -4,21 +4,17 @@ import 'package:domain/models/server_info.dart';
 import 'package:flutter/material.dart';
 import 'package:navigation/navigation.dart';
 
-import 'package:server_info/server_info.dart';
-
 class ServerListItem extends StatelessWidget {
   final ServerInfo server;
 
   const ServerListItem({super.key, required this.server});
 
   void select(BuildContext context) {
-    // Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //         builder: (context) => ServerInfoScreen(
-    //               selectedServer: server,
-    //             )));
-    context.router.push(ServerInfoRoute(selectedServer: server));
+    AppRouter.pushNamedCustom(
+      route: AppRoutes.serverInfo,
+      context: context,
+      obj: server,
+    );
   }
 
   @override
