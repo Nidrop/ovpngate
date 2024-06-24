@@ -3,6 +3,7 @@ import 'package:core/config/network/dio_config.dart';
 
 import 'package:core/di/app_di.dart';
 import 'package:data/providers/local_data_provider.dart';
+import 'package:data/repositories/config_repository.dart';
 import 'package:data/repositories/vpngate_repository.dart';
 import 'package:data/repositories/openvpn_service.dart';
 import 'package:domain/repositories/i_repository.dart';
@@ -55,9 +56,11 @@ class DataDI {
       () => LocalConfigProviderImpl(appConfig: appLocator<AppConfig>()),
     );
 
+    appLocator.registerLazySingleton<ConfigRepository>(() => ConfigRepository(
+        localStorage: appLocator.get<LocalConfigProviderImpl>()));
+
     appLocator.registerLazySingleton<IVpnService>(
-      () => OpenvpnService(
-          localStorage: appLocator.get<LocalConfigProviderImpl>()),
+      () => OpenvpnService(localRepository: appLocator.get<ConfigRepository>()),
     );
   }
 }

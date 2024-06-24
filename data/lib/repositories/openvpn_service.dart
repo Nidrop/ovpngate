@@ -5,6 +5,7 @@ import 'package:core/core.dart';
 import 'package:data/mapper/openvpn_mapper.dart';
 import 'package:data/mapper/server_info_mapper.dart';
 import 'package:data/providers/local_data_provider.dart';
+import 'package:data/repositories/config_repository.dart';
 import 'package:domain/models/server_info.dart';
 import 'package:domain/repositories/i_vpn_service.dart';
 import 'package:openvpn_flutter/openvpn_flutter.dart';
@@ -20,14 +21,14 @@ class OpenvpnService implements IVpnService {
   @override
   Stream get stageStream => stageSC.stream;
 
-  final LocalDataProvider localStorage;
+  final ConfigRepository localRepository;
   late final OpenVPN openvpn;
   bool configCipherFix;
 
   OpenvpnService({
     this.configCipherFix = true,
     this.vpnstage = EnVPNStage.unknown,
-    required this.localStorage,
+    required this.localRepository,
   }) {
     openvpn = OpenVPN(
       // onVpnStatusChanged: _onVpnStatusChanged,
@@ -37,7 +38,7 @@ class OpenvpnService implements IVpnService {
       localizedDescription: 'oVPNGate',
     );
     openvpn.stage().then((stage) {
-      readLastConnectedServer().then((lastServer) {
+      localRepository.readLastConnectedServer().then((lastServer) {
         vpnstage = OpenvpnMapper.vpnstageToEnvpnstage(stage);
         server = (stage != VPNStage.disconnected) ? lastServer : null;
       });
@@ -59,24 +60,6 @@ class OpenvpnService implements IVpnService {
     return ovpnConfig;
   }
 
-  Future<ServerInfo?> readLastConnectedServer() async {
-    final str = await localStorage.read(StorageConstants.currentVpnSessionFile);
-    if (str == null) return null;
-    return ServerInfo(
-      speed: -1,
-      countryShort: '',
-      sessions: -1,
-      uptime: -1,
-      name: str,
-      ovpnConfig: '',
-    );
-  }
-
-  Future<void> saveConnectedServer({required ServerInfo server}) async {
-    localStorage.write(
-        key: StorageConstants.currentVpnSessionFile, value: server.name);
-  }
-
   void setConfigCipherFix(bool value) {
     this.configCipherFix = value;
   }
@@ -95,7 +78,7 @@ class OpenvpnService implements IVpnService {
     );
 
     this.server = server;
-    saveConnectedServer(server: server);
+    localRepository.saveConnectedServer(server: server);
   }
 
   @override
