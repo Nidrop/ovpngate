@@ -2,6 +2,7 @@
   "common" : {
     "oVPNGate" : "oVPNGate",
     "vpnServer" : "VPN Server",
+    "settings" : "Settings",
     "notSelected" : "not selected",
     "connect" : "connect",
     "disconnect" : "disconnect",

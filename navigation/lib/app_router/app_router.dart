@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:server_info/server_info.dart';
 import 'package:server_list/server_list.dart';
+import 'package:settings/settings.dart';
 
 part 'app_router.gr.dart';
 
@@ -8,6 +9,7 @@ part 'app_router.gr.dart';
   modules: <Type>[
     ServerListModule,
     ServerInfoModule,
+    SettingsModule,
   ],
   replaceInRouteName: 'Form,Screen,Route',
 )
@@ -25,6 +27,10 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           page: ServerInfoRoute.page,
           path: '/info',
+        ),
+        AutoRoute(
+          page: SettingsRoute.page,
+          path: '/settings',
         ),
       ];
 }

@@ -9,6 +9,8 @@ import 'package:server_list/bloc/server_list_state.dart';
 import 'package:navigation/navigation.dart';
 import 'package:server_list/widgets/server_list_item.dart';
 
+import 'package:settings/settings.dart';
+
 @RoutePage()
 class ServerListScreen extends StatelessWidget {
   const ServerListScreen({super.key});
@@ -19,6 +21,10 @@ class ServerListScreen extends StatelessWidget {
       return;
     }
     context.read<ServerListCubit>().getServerList(forceRefresh: true);
+  }
+
+  void openSettings(BuildContext context) {
+    context.router.push(SettingsRoute());
   }
 
   @override
@@ -43,6 +49,10 @@ class ServerListScreen extends StatelessWidget {
               IconButton(
                 onPressed: () => refreshList(context),
                 icon: const Icon(Icons.refresh),
+              ),
+              IconButton(
+                onPressed: () => openSettings(context),
+                icon: const Icon(Icons.settings),
               ),
             ],
           ),

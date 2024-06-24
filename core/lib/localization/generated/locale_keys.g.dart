@@ -3,6 +3,7 @@
 abstract class  LocaleKeys {
   static const common_oVPNGate = 'common.oVPNGate';
   static const common_vpnServer = 'common.vpnServer';
+  static const common_settings = 'common.settings';
   static const common_notSelected = 'common.notSelected';
   static const common_connect = 'common.connect';
   static const common_disconnect = 'common.disconnect';

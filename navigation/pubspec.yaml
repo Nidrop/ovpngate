@@ -14,6 +14,8 @@ dependencies:
     path: ../feature/server_info
   server_list:
     path: ../feature/server_list
+  settings:
+    path: ../feature/settings
 
   core:
     path: ../core
