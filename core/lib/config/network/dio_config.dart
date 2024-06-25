@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:core/config/network/interceptors/cache_interceptor.dart';
 import 'package:core/core.dart';
 import '../app_config.dart';
 import 'interceptors/dio_log_interceptor.dart';
@@ -25,7 +24,6 @@ class DioConfig {
         ErrorInterceptor(_dio),
         ResponseInterceptor(_dio),
         dioLoggerInterceptor,
-        // CacheInterceptor(cachePath: appConfig.cachePath),
       ]);
   }
 
