@@ -1,14 +1,17 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:domain/models/server_info.dart';
 import 'package:flutter/material.dart';
+import 'package:navigation/app_router/splash_guard.dart';
 import 'package:server_info/server_info.dart';
 import 'package:server_list/server_list.dart';
 import 'package:settings/settings.dart';
+import 'package:splash/splash.dart';
 
 part 'app_router.gr.dart';
 
 enum AppRoutes {
-  serverList(path: '/'),
+  splash(path: '/'),
+  serverList(path: '/list'),
   serverInfo(path: '/info'),
   settings(path: '/settings');
 
@@ -22,6 +25,7 @@ enum AppRoutes {
     ServerListModule,
     ServerInfoModule,
     SettingsModule,
+    SplashModule,
   ],
   replaceInRouteName: 'Form,Screen,Route',
 )
@@ -32,9 +36,14 @@ class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(
+          page: SplashRoute.page,
+          path: AppRoutes.splash.path,
+          initial: true,
+          guards: [SplashGuard()],
+        ),
+        AutoRoute(
           page: ServerListRoute.page,
           path: AppRoutes.serverList.path,
-          initial: true,
         ),
         AutoRoute(
           page: ServerInfoRoute.page,
@@ -59,7 +68,6 @@ class AppRouter extends _$AppRouter {
             selectedServer: (obj is ServerInfo)
                 ? obj
                 : throw Exception('argument obj is not ServerInfo instance')));
-        break;
       case AppRoutes.settings:
         context.router.push(const SettingsRoute());
       default:
