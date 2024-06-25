@@ -33,7 +33,7 @@ abstract class IVpnService {
   ServerInfo? server;
   EnVPNStage vpnstage = EnVPNStage.unknown;
 
-  StreamController stageSC = StreamController<EnVPNStage>.broadcast();
+  final StreamController stageSC = StreamController<EnVPNStage>.broadcast();
   Stream get stageStream => stageSC.stream;
 
   void connect(ServerInfo server) {}

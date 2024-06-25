@@ -8,18 +8,20 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
-  _setupDI();
+  await _setupDI();
   runApp(const CoreUiDI());
 }
 
-void _setupDI() {
-  appLocator.pushNewScope(
-    scopeName: unauthScope,
-    init: (_) {
-      AppDI.initDependencies();
-    },
-  );
-
+Future<void> _setupDI() async {
+  // appLocator.pushNewScope(
+  //   scopeName: unauthScope,
+  //   init: (_) async {
+  //     await AppDI.initDependencies();
+  //   },
+  // );
+  AppDI.initDependencies();
   dataDI.initDependencies();
   setupNavigationDependencies();
+
+  await appLocator.allReady();
 }

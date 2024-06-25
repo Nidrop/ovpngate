@@ -52,15 +52,22 @@ class DataDI {
   }
 
   void _initService() {
-    appLocator.registerLazySingleton<LocalConfigProviderImpl>(
-      () => LocalConfigProviderImpl(appConfig: appLocator<AppConfig>()),
+    appLocator.registerSingletonAsync<LocalConfigProviderImpl>(
+      () async => LocalConfigProviderImpl(appConfig: appLocator<AppConfig>()),
+      dependsOn: [AppConfig],
     );
 
-    appLocator.registerLazySingleton<ConfigRepository>(() => ConfigRepository(
-        localStorage: appLocator.get<LocalConfigProviderImpl>()));
-
-    appLocator.registerLazySingleton<IVpnService>(
-      () => OpenvpnService(localRepository: appLocator.get<ConfigRepository>()),
+    appLocator.registerSingletonAsync<ConfigRepository>(
+      () async => ConfigRepository(
+          localStorage: appLocator.get<LocalConfigProviderImpl>()),
+      dependsOn: [LocalConfigProviderImpl],
     );
+
+    appLocator.registerSingletonAsync<IVpnService>(() async {
+      final openvpnService =
+          OpenvpnService(localRepository: appLocator.get<ConfigRepository>());
+      await openvpnService.initialize();
+      return openvpnService;
+    }, dependsOn: [ConfigRepository]);
   }
 }

@@ -9,9 +9,9 @@ final GetIt appLocator = GetIt.instance;
 const String unauthScope = 'unauthScope';
 
 class AppDI {
-  static Future<void> initDependencies() async {
-    appLocator.registerSingleton<AppConfig>(
-      AppConfig(
+  static void initDependencies() {
+    appLocator.registerSingletonAsync<AppConfig>(
+      () async => AppConfig(
         flavor: Flavor.canary,
         baseUrl: 'https://www.vpngate.net',
         cachePath: await AppPaths.getCacheDirPath(),

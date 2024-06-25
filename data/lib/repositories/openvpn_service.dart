@@ -16,7 +16,7 @@ class OpenvpnService implements IVpnService {
   @override
   EnVPNStage vpnstage;
   @override
-  StreamController stageSC = StreamController<EnVPNStage>.broadcast();
+  final StreamController stageSC = StreamController<EnVPNStage>.broadcast();
 
   @override
   Stream get stageStream => stageSC.stream;
@@ -29,20 +29,29 @@ class OpenvpnService implements IVpnService {
     this.configCipherFix = true,
     this.vpnstage = EnVPNStage.unknown,
     required this.localRepository,
-  }) {
+  });
+
+  Future<void> initialize() async {
     openvpn = OpenVPN(
-      // onVpnStatusChanged: _onVpnStatusChanged,
+      onVpnStatusChanged: _onVpnStatusChanged,
       onVpnStageChanged: _onVpnStageChanged,
     );
     openvpn.initialize(
       localizedDescription: 'oVPNGate',
     );
-    openvpn.stage().then((stage) {
-      localRepository.readLastConnectedServer().then((lastServer) {
-        vpnstage = OpenvpnMapper.vpnstageToEnvpnstage(stage);
-        server = (stage != VPNStage.disconnected) ? lastServer : null;
-      });
-    });
+
+    vpnstage = OpenvpnMapper.vpnstageToEnvpnstage(await openvpn.stage());
+    server = (vpnstage != EnVPNStage.disconnected)
+        ? await localRepository.readLastConnectedServer()
+        : null;
+
+    //old
+    // openvpn.stage().then((stage) {
+    //   localRepository.readLastConnectedServer().then((lastServer) {
+    //     vpnstage = OpenvpnMapper.vpnstageToEnvpnstage(stage);
+    //     server = (stage != VPNStage.disconnected) ? lastServer : null;
+    //   });
+    // });
   }
 
   void _onVpnStatusChanged(VpnStatus? vpnStatus) {}
