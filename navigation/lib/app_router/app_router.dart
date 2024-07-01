@@ -55,6 +55,7 @@ class AppRouter extends _$AppRouter {
         ),
       ];
 
+  // TODO(Karatysh): remove context use appRouter to navigation 
   static void pushNamedCustom({
     required AppRoutes route,
     Object? obj,

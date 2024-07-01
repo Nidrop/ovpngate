@@ -13,6 +13,7 @@ import 'package:server_list/widgets/server_list_item.dart';
 class ServerListScreen extends StatelessWidget {
   const ServerListScreen({super.key});
 
+  //TODO(Karatysh): don't use context and name methods with underscore
   void refreshList(BuildContext context, {bool getCache = false}) {
     if (getCache) {
       context.read<ServerListCubit>().getServerList(getCache: true);
@@ -21,6 +22,7 @@ class ServerListScreen extends StatelessWidget {
     context.read<ServerListCubit>().getServerList(forceRefresh: true);
   }
 
+  // TODO(Karatysh): move this logic to cubit, the same with context
   void openSettings(BuildContext context) {
     AppRouter.pushNamedCustom(
       route: AppRoutes.settings,
@@ -28,6 +30,20 @@ class ServerListScreen extends StatelessWidget {
     );
   }
 
+  //TODO(Karatysh): create separate file for BlocProvider, example:
+  // @override
+  // Widget build(BuildContext context) {
+  //   return BlocProvider<EditProfileBloc>(
+  //     create: (BuildContext context) {
+  //       return EditProfileBloc(
+  //         appRouter: appLocator.get<AppRouter>(),
+  //         user: user,
+  //         updateUserProfileUseCase: appLocator.get<UpdateUserProfileUseCase>(),
+  //       );
+  //     },
+  //     child: const EditProfileContent(),
+  //   );
+  // }
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -35,6 +51,7 @@ class ServerListScreen extends StatelessWidget {
       child: Builder(builder: (context) {
         return Scaffold(
           appBar: AppBar(
+            //TODO(Karatysh): remove all comments and add comma
             // title: const Text(LangEN.serverListTitle),
             title: Text(context.tr(LocaleKeys.common_serverList)),
             actions: [
@@ -70,6 +87,7 @@ class ServerListScreen extends StatelessWidget {
               ServerListLoaded(servers: final servers) => ListView.builder(
                   itemBuilder: (BuildContext context, int index) {
                     return ServerListItem(
+                      // TODO(Karatysh): create var x = servers[index] and use ut
                       server: ServerInfo(
                         countryShort: servers[index].countryShort,
                         speed: servers[index].speed,

@@ -23,10 +23,12 @@ class ServerListItem extends StatelessWidget {
       leading: Text(server.countryShort),
       title: Text(server.name),
       subtitle: Row(
+        //TODO(Karatysh): remove all comments
         //mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // Text('${server.sessions} ${LangEN.sessions}'),
           Text('${server.sessions} ${context.tr(LocaleKeys.common_sessions)}'),
+          //TODO(Karatysh): nit: remove comma here
           SizedBox(
             width: 20,
           ),
@@ -36,6 +38,7 @@ class ServerListItem extends StatelessWidget {
       ),
       // trailing: Text('${server.speed} ${LangEN.mbps}'),
       trailing: Text('${server.speed} ${context.tr(LocaleKeys.common_mbps)}'),
+      //TODO(Karatysh): don't use context
       onTap: () => select(context),
     );
   }
