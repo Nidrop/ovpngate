@@ -779,6 +779,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.0"
+  splash:
+    dependency: transitive
+    description:
+      path: "../splash"
+      relative: true
+    source: path
+    version: "0.0.1"
   sprintf:
     dependency: transitive
     description:
