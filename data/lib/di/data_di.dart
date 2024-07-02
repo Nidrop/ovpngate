@@ -78,13 +78,13 @@ class DataDI {
 
   void _initSetting() {
     appLocator.registerSingletonAsync<ISettingsService>(
-      () async => SettingsService(
-        repository: appLocator.get<ConfigRepository>(),
-        settings: Settings(
-          urls: ApiConstants.staticMirrorList,
-          currentUrl: ApiConstants.staticMirrorList.first,
-        ),
-      ),
+      () async {
+        final settingsService = SettingsService(
+          repository: appLocator.get<ConfigRepository>(),
+        );
+        await settingsService.initialize();
+        return settingsService;
+      },
       dependsOn: [ConfigRepository],
     );
   }

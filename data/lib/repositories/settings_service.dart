@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:data/repositories/config_repository.dart';
 import 'package:domain/models/settings.dart';
 import 'package:domain/repositories/i_settings_service.dart';
@@ -6,21 +7,28 @@ class SettingsService implements ISettingsService {
   final ConfigRepository repository;
 
   @override
-  Settings settings;
+  late Settings settings;
 
   SettingsService({
     required this.repository,
-    required this.settings,
   });
 
-  @override
-  Settings loadSettings() {
-    // TODO: implement getSettings
-    throw UnimplementedError();
+  Future<void> initialize() async {
+    await loadSettings();
   }
 
   @override
-  void saveSettings(Settings s) {
-    // TODO: implement saveSettings
+  Future<Settings> loadSettings() async {
+    settings = await repository.readSettings() ??
+        Settings(
+          urls: ApiConstants.staticMirrorList,
+          currentUrl: ApiConstants.staticMirrorList.first,
+        );
+    return settings;
+  }
+
+  @override
+  Future<void> saveSettings(Settings settings) async {
+    repository.saveSettings(settings: settings);
   }
 }
