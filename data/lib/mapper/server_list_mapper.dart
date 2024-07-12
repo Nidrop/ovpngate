@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:html/dom.dart';
+import 'package:html/parser.dart';
 import 'package:csv/csv.dart';
 import 'package:data/entities/server_info_dto.dart';
 import 'package:domain/models/server_info.dart';
@@ -62,4 +64,114 @@ sealed class ServerListMapper {
       ),
     );
   }
+
+  static List<ServerInfoDto> htmlTolistServerInfoDto(String html) {
+    List<ServerInfoDto> list = [];
+
+    final document = parse(html);
+    final tables = document.getElementsByTagName('table');
+    assert(tables.isNotEmpty);
+
+    late final List<Element> trList;
+
+    for (final table in tables) {
+      final trs = table.getElementsByTagName('tr');
+      if (trs.isEmpty) continue;
+      final tds = trs.first.children;
+      if (tds.length == 10) {
+        trList = trs;
+        break;
+      }
+    }
+
+    for (final tr in trList) {
+      late String countryLong;
+      late String countryShort;
+      late int numVpnSessions;
+      late int uptime;
+      late int speed;
+      final params = Map<String, dynamic>();
+
+      if (tr.getElementsByClassName('vg_table_header').isNotEmpty) continue;
+
+      final tdList = tr.children;
+      assert(tdList.length == 10);
+
+      //7
+      final a = tdList[6].getElementsByTagName('a');
+      if (a.length != 1) continue;
+      final href = a.first.attributes['href'];
+      assert(href != null);
+      final paramStr = href!.split('?').last;
+      final paramSplit = paramStr.split('&');
+      bool skipWithoutTcp = false;
+      for (final pair in paramSplit) {
+        final pairSplit = pair.split('=');
+        assert(pairSplit.length == 2);
+        params[pairSplit.first] = pairSplit.last;
+        if (pairSplit.first == 'tcp' && pairSplit.last == '0') {
+          skipWithoutTcp = true;
+          break;
+        }
+      }
+      if (skipWithoutTcp) continue;
+
+      //1
+      countryLong = tdList[0].text;
+      final img = tdList[0].getElementsByTagName('img');
+      assert(img.length == 1);
+      final imgSrc = img.first.attributes['src'];
+      assert(imgSrc != null);
+      final imgStr = imgSrc!.split('/').last;
+      countryShort = imgStr.split('.').first;
+
+      //3
+      var spans = tdList[2].getElementsByTagName('span');
+      assert(spans.length == 2);
+      final sessionStr = spans.first.text.split(' ').first;
+      final sessions = int.tryParse(sessionStr);
+      assert(sessions != null);
+      numVpnSessions = sessions!;
+      final days = int.tryParse(spans[1].text.split(' ').first);
+      assert(days != null);
+      uptime = days! * 1000 * 60 * 60 * 24;
+
+      //4
+      var span = tdList[3].getElementsByTagName('span').first;
+      var speedStr = span.text.split(' ').first;
+      speedStr = speedStr.replaceAll(RegExp(','), '');
+      final splitStr = speedStr.split('.');
+      assert(splitStr.length == 2);
+      speed = (int.parse(splitStr.first) * 100 + int.parse(splitStr.last)) *
+          10 *
+          1000;
+
+      //TODO fill all fields
+      list.add(ServerInfoDto(
+          hostName: params['fqdn'],
+          ip: params['ip'],
+          score: -1,
+          ping: -1,
+          speed: speed,
+          countryLong: countryLong,
+          countryShort: countryShort,
+          numVpnSessions: numVpnSessions,
+          uptime: uptime,
+          totalUsers: -1,
+          totalTraffic: -1,
+          logType: '',
+          operator: '',
+          message: '',
+          openVPNConfigDataBase64: ''));
+    }
+
+    return list;
+  }
 }
+
+// class OvpnRequestParams {
+//   int sid;
+//   int host;
+//   int port;
+//   int hid;
+// }
