@@ -23,10 +23,9 @@ class ServerListScreen extends StatelessWidget {
   }
 
   // TODO(Karatysh): move this logic to cubit, the same with context
-  void openSettings(BuildContext context) {
+  void openSettings() {
     AppRouter.pushNamedCustom(
       route: AppRoutes.settings,
-      context: context,
     );
   }
 
@@ -69,7 +68,7 @@ class ServerListScreen extends StatelessWidget {
                 icon: const Icon(Icons.refresh),
               ),
               IconButton(
-                onPressed: () => openSettings(context),
+                onPressed: () => openSettings(),
                 icon: const Icon(Icons.settings),
               ),
             ],

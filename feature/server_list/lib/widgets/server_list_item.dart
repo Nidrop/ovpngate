@@ -9,10 +9,9 @@ class ServerListItem extends StatelessWidget {
 
   const ServerListItem({super.key, required this.server});
 
-  void select(BuildContext context) {
+  void select() {
     AppRouter.pushNamedCustom(
       route: AppRoutes.serverInfo,
-      context: context,
       obj: server,
     );
   }
@@ -38,8 +37,7 @@ class ServerListItem extends StatelessWidget {
       ),
       // trailing: Text('${server.speed} ${LangEN.mbps}'),
       trailing: Text('${server.speed} ${context.tr(LocaleKeys.common_mbps)}'),
-      //TODO(Karatysh): don't use context
-      onTap: () => select(context),
+      onTap: select,
     );
   }
 }
