@@ -85,15 +85,15 @@ class ServerListScreen extends StatelessWidget {
                 ),
               ServerListLoaded(servers: final servers) => ListView.builder(
                   itemBuilder: (BuildContext context, int index) {
+                    final server = servers[index];
                     return ServerListItem(
-                      // TODO(Karatysh): create var x = servers[index] and use ut
                       server: ServerInfo(
-                        countryShort: servers[index].countryShort,
-                        speed: servers[index].speed,
-                        sessions: servers[index].sessions,
-                        uptime: servers[index].uptime,
-                        name: servers[index].name,
-                        ovpnConfig: servers[index].ovpnConfig,
+                        countryShort: server.countryShort,
+                        speed: server.speed,
+                        sessions: server.sessions,
+                        uptime: server.uptime,
+                        name: server.name,
+                        ovpnConfig: server.ovpnConfig,
                       ),
                     );
                   },
