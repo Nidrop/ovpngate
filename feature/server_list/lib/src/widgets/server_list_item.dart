@@ -15,20 +15,14 @@ class ServerListItem extends StatelessWidget {
       leading: Text(server.countryShort),
       title: Text(server.name),
       subtitle: Row(
-        //TODO(Karatysh): remove all comments
-        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Text('${server.sessions} ${LangEN.sessions}'),
           Text('${server.sessions} ${context.tr(LocaleKeys.common_sessions)}'),
-          //TODO(Karatysh): nit: remove comma here
           SizedBox(
             width: 20,
           ),
-          // Text('${server.uptime} ${LangEN.days}'),
           Text('${server.uptime} ${context.tr(LocaleKeys.common_days)}'),
         ],
       ),
-      // trailing: Text('${server.speed} ${LangEN.mbps}'),
       trailing: Text('${server.speed} ${context.tr(LocaleKeys.common_mbps)}'),
       onTap: () => context.read<ServerListCubit>().openServerInfo(server),
     );

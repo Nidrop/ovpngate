@@ -62,10 +62,6 @@ class ServerInfoScreen extends StatelessWidget {
                         state.connectedServer.name == state.selectedServer.name)
                       Text(
                         state.stage.name,
-                        style: TextStyle(
-                            // fontSize: 20,
-                            // fontWeight: FontWeight.bold,
-                            ),
                       )
                   ],
                 );
