@@ -13,36 +13,6 @@ import 'package:server_list/widgets/server_list_item.dart';
 class ServerListScreen extends StatelessWidget {
   const ServerListScreen({super.key});
 
-  //TODO(Karatysh): don't use context and name methods with underscore
-  void refreshList(BuildContext context, {bool getCache = false}) {
-    if (getCache) {
-      context.read<ServerListCubit>().getServerList(getCache: true);
-      return;
-    }
-    context.read<ServerListCubit>().getServerList(forceRefresh: true);
-  }
-
-  // TODO(Karatysh): move this logic to cubit, the same with context
-  void openSettings() {
-    AppRouter.pushNamedCustom(
-      route: AppRoutes.settings,
-    );
-  }
-
-  //TODO(Karatysh): create separate file for BlocProvider, example:
-  // @override
-  // Widget build(BuildContext context) {
-  //   return BlocProvider<EditProfileBloc>(
-  //     create: (BuildContext context) {
-  //       return EditProfileBloc(
-  //         appRouter: appLocator.get<AppRouter>(),
-  //         user: user,
-  //         updateUserProfileUseCase: appLocator.get<UpdateUserProfileUseCase>(),
-  //       );
-  //     },
-  //     child: const EditProfileContent(),
-  //   );
-  // }
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -50,25 +20,24 @@ class ServerListScreen extends StatelessWidget {
       child: Builder(builder: (context) {
         return Scaffold(
           appBar: AppBar(
-            //TODO(Karatysh): remove all comments and add comma
-            // title: const Text(LangEN.serverListTitle),
             title: Text(context.tr(LocaleKeys.common_serverList)),
             actions: [
               (kDebugMode)
                   ? IconButton(
-                      onPressed: () {
-                        //get cached list
-                        refreshList(context, getCache: true);
-                      },
+                      onPressed: () => context
+                          .read<ServerListCubit>()
+                          .getServerList(getCache: true),
                       icon: const Icon(Icons.cached),
                     )
                   : const SizedBox(),
               IconButton(
-                onPressed: () => refreshList(context),
+                onPressed: () => context
+                    .read<ServerListCubit>()
+                    .getServerList(forceRefresh: true),
                 icon: const Icon(Icons.refresh),
               ),
               IconButton(
-                onPressed: () => openSettings(),
+                onPressed: context.read<ServerListCubit>().openSettings,
                 icon: const Icon(Icons.settings),
               ),
             ],

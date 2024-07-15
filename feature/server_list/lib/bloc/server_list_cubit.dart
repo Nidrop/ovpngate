@@ -1,5 +1,7 @@
+import 'package:domain/models/server_info.dart';
 import 'package:domain/repositories/i_repository.dart';
 import 'package:core/core.dart';
+import 'package:navigation/app_router/app_router.dart';
 import 'package:server_list/bloc/server_list_state.dart';
 
 class ServerListCubit extends Cubit<ServerListState> {
@@ -22,5 +24,18 @@ class ServerListCubit extends Cubit<ServerListState> {
     } on Exception catch (e) {
       emit(ServerListError(error: e.toString()));
     }
+  }
+
+  void openSettings() {
+    AppRouter.pushNamedCustom(
+      route: AppRoutes.settings,
+    );
+  }
+
+  void openServerInfo(ServerInfo server) {
+    AppRouter.pushNamedCustom(
+      route: AppRoutes.serverInfo,
+      obj: server,
+    );
   }
 }

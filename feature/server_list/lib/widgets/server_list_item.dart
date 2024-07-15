@@ -3,18 +3,12 @@ import 'package:core/core.dart';
 import 'package:domain/models/server_info.dart';
 import 'package:flutter/material.dart';
 import 'package:navigation/navigation.dart';
+import 'package:server_list/bloc/server_list_cubit.dart';
 
 class ServerListItem extends StatelessWidget {
   final ServerInfo server;
 
   const ServerListItem({super.key, required this.server});
-
-  void select() {
-    AppRouter.pushNamedCustom(
-      route: AppRoutes.serverInfo,
-      obj: server,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +31,7 @@ class ServerListItem extends StatelessWidget {
       ),
       // trailing: Text('${server.speed} ${LangEN.mbps}'),
       trailing: Text('${server.speed} ${context.tr(LocaleKeys.common_mbps)}'),
-      onTap: select,
+      onTap: () => context.read<ServerListCubit>().openServerInfo(server),
     );
   }
 }
