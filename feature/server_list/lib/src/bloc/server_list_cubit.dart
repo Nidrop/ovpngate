@@ -2,7 +2,7 @@ import 'package:domain/models/server_info.dart';
 import 'package:domain/repositories/i_repository.dart';
 import 'package:core/core.dart';
 import 'package:navigation/app_router/app_router.dart';
-import 'package:server_list/bloc/server_list_state.dart';
+import 'package:server_list/src/bloc/server_list_state.dart';
 
 class ServerListCubit extends Cubit<ServerListState> {
   final IRepository repository;

@@ -2,8 +2,7 @@ import 'package:core/localization/generated/locale_keys.g.dart';
 import 'package:core/core.dart';
 import 'package:domain/models/server_info.dart';
 import 'package:flutter/material.dart';
-import 'package:navigation/navigation.dart';
-import 'package:server_list/bloc/server_list_cubit.dart';
+import 'package:server_list/src/bloc/server_list_cubit.dart';
 
 class ServerListItem extends StatelessWidget {
   final ServerInfo server;

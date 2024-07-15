@@ -4,10 +4,10 @@ import 'package:domain/models/server_info.dart';
 import 'package:domain/repositories/i_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:server_list/bloc/server_list_cubit.dart';
-import 'package:server_list/bloc/server_list_state.dart';
 import 'package:navigation/navigation.dart';
-import 'package:server_list/widgets/server_list_item.dart';
+import 'package:server_list/src/bloc/server_list_cubit.dart';
+import 'package:server_list/src/bloc/server_list_state.dart';
+import 'package:server_list/src/widgets/server_list_item.dart';
 
 @RoutePage()
 class ServerListScreen extends StatelessWidget {

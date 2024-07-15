@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:core/core.dart';
 import 'package:domain/repositories/i_vpn_service.dart';
-import 'package:server_info/bloc/server_info_state.dart';
+import 'package:server_info/src/bloc/server_info_state.dart';
 
 class ServerInfoCubit extends Cubit<ServerInfoState> {
   final IVpnService vpnService;

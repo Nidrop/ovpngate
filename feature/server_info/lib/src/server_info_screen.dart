@@ -3,10 +3,9 @@ import 'package:domain/models/server_info.dart';
 import 'package:domain/repositories/i_vpn_service.dart';
 import 'package:flutter/material.dart';
 import 'package:core/core.dart';
-import 'package:core_ui/core_ui.dart';
 import 'package:navigation/navigation.dart';
-import 'package:server_info/bloc/server_info_cubit.dart';
-import 'package:server_info/bloc/server_info_state.dart';
+import 'package:server_info/src/bloc/server_info_cubit.dart';
+import 'package:server_info/src/bloc/server_info_state.dart';
 
 @RoutePage()
 class ServerInfoScreen extends StatelessWidget {
