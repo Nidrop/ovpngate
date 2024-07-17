@@ -64,11 +64,9 @@ class AppRouter extends _$AppRouter {
       case AppRoutes.serverList:
         router.push(const ServerListRoute());
       case AppRoutes.serverInfo:
-        router.push(ServerInfoRoute(
-            selectedServer: (obj is ServerInfo)
-                ? obj
-                : throw Exception(
-                    'argument obj is not a ServerInfo instance')));
+        if (obj is ServerInfo) {
+          router.push(ServerInfoRoute(selectedServer: obj));
+        }
       case AppRoutes.settings:
         router.push(const SettingsRoute());
       default:
