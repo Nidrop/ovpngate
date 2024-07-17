@@ -13,9 +13,7 @@ class CoreUiDI extends StatelessWidget {
       path: AppLocalization.langsFolderPath,
       fallbackLocale: AppLocalization.fallbackLocale,
       child: Builder(builder: (context) {
-        // return MaterialApp(
         return MaterialApp.router(
-          // title: LangEN.homeTitle,
           title: 'no title',
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
@@ -23,8 +21,6 @@ class CoreUiDI extends StatelessWidget {
           routerDelegate: appLocator.get<AppRouter>().delegate(),
           routeInformationParser:
               appLocator.get<AppRouter>().defaultRouteParser(),
-          // builder: (context, child) => child ?? const SizedBox(),
-          // home: const ServerListScreen(),
         );
       }),
     );
