@@ -1,23 +1,44 @@
 import 'package:core/constants/api_constants.dart';
+import 'package:core/logger/logger.dart';
 import 'package:data/entities/server_info_dto.dart';
 import 'package:data/mapper/server_list_mapper.dart';
 import 'package:dio/dio.dart';
-import 'package:retrofit/retrofit.dart';
-import 'package:json_annotation/json_annotation.dart';
-part 'api_provider.g.dart';
+import 'package:domain/models/settings.dart';
+import 'package:domain/repositories/i_settings_service.dart';
 
-@RestApi()
-abstract class ApiProvider {
-  factory ApiProvider(Dio dio) = _ApiProvider;
+class ApiProvider {
+  final Dio dio;
+  final ISettingsService settingsService;
+  ApiProvider({
+    required this.dio,
+    required this.settingsService,
+  });
 
-  @GET(ApiConstants.serverList)
-  Future<String> getServerListString();
+  Future<List<ServerInfoDto>> getServerList() async {
+    try {
+      String url = settingsService.settings.currentUrl;
+      if (settingsService.settings.fetchMode == FetchMode.csv) {
+        url += ApiConstants.serverList;
+      }
+      final response = await dio.get(url);
 
-  // Future<List<ServerInfoDto>> getServerList() async {
-  //   return ServerListMapper.stringToListServerInfoDto(
-  //     rawCSV: await getServerListString(),
-  //   );
-  // }
+      final String data = response.data;
+      switch (settingsService.settings.fetchMode) {
+        case FetchMode.csv:
+          return ServerListMapper.csvToListServerInfoDto(data);
+        case FetchMode.html:
+          return ServerListMapper.htmlTolistServerInfoDto(data);
+      }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout) {
+        // Handle connection timeout error
+        AppLogger().warning('Connection timeout error: ${e.message}');
+        rethrow;
+      } else {
+        rethrow;
+      }
+    }
+  }
 
   // void setToken(String? token);
 }

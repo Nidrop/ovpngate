@@ -28,9 +28,7 @@ class VpngateRepository implements IRepository {
         await localProvider.read(StorageConstants.cachedServerListFile);
     if ((dtoString == null || forceRefresh) &&
         (dtoString == null || !getCache)) {
-      dto = ServerListMapper.stringToListServerInfoDto(
-        rawCSV: await remoteProvider.getServerListString(),
-      );
+      dto = await remoteProvider.getServerList();
       localProvider.write(
           key: StorageConstants.cachedServerListFile, value: jsonEncode(dto));
     } else {

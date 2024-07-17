@@ -1,20 +1,18 @@
 import 'dart:convert';
 
+import 'package:core/logger/logger.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:csv/csv.dart';
 import 'package:data/entities/server_info_dto.dart';
 import 'package:domain/models/server_info.dart';
-import 'package:flutter/foundation.dart';
 
 sealed class ServerListMapper {
-  static List<ServerInfoDto> stringToListServerInfoDto({
-    required String rawCSV,
-  }) {
+  static List<ServerInfoDto> csvToListServerInfoDto(String csv) {
     int rowLength = 15;
 
     List<ServerInfoDto> list = [];
-    final csvList = const CsvToListConverter().convert(rawCSV);
+    final csvList = const CsvToListConverter().convert(csv);
     for (int i = 0; i < csvList.length; i++) {
       final row = csvList[i];
       if (row.length != rowLength) {
@@ -41,7 +39,7 @@ sealed class ServerListMapper {
           ),
         );
       } catch (e) {
-        debugPrint('row $i is not parsed');
+        AppLogger().info('row $i is not parsed');
         continue;
       }
     }
@@ -90,7 +88,7 @@ sealed class ServerListMapper {
       late int numVpnSessions;
       late int uptime;
       late int speed;
-      final params = Map<String, dynamic>();
+      final params = Map<String, String>();
 
       if (tr.getElementsByClassName('vg_table_header').isNotEmpty) continue;
 
@@ -148,8 +146,8 @@ sealed class ServerListMapper {
 
       //TODO fill all fields
       list.add(ServerInfoDto(
-          hostName: params['fqdn'],
-          ip: params['ip'],
+          hostName: params['fqdn']!.split('.opengw.net').first,
+          ip: params['ip']!,
           score: -1,
           ping: -1,
           speed: speed,
