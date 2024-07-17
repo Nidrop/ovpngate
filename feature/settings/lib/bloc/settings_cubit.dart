@@ -1,15 +1,41 @@
 import 'package:core/core.dart';
+import 'package:domain/models/settings.dart';
 import 'package:domain/repositories/i_settings_service.dart';
 import 'package:navigation/navigation.dart';
-import 'package:settings/bloc/settings_state.dart';
 
-class SettingsCubit extends Cubit<SettingsState> {
-  SettingsCubit() : super(SettingsState());
+class SettingsCubit extends Cubit<Settings> {
+  SettingsCubit() : super(appLocator.get<ISettingsService>().settings.copy());
 
   void saveSettings() {
-    final settingsService = appLocator.get<ISettingsService>();
-    settingsService.saveSettings(settingsService.settings);
+    var settingsService = appLocator.get<ISettingsService>();
+    settingsService.settings = state;
+    settingsService.saveSettings();
     final appRouter = appLocator.get<AppRouter>();
     appRouter.maybePop();
+  }
+
+  void changeTheme(int index) {
+    final themeMode = EnThemeMode.values[index];
+    emit(state.copyWith(themeMode: themeMode));
+  }
+
+  void changeFetch(bool val) {
+    late final FetchMode fetchMode;
+    if (val) {
+      fetchMode = FetchMode.html;
+    } else {
+      fetchMode = FetchMode.csv;
+    }
+    emit(state.copyWith(fetchMode: fetchMode));
+  }
+
+  void changeMirrorsOrder(int oldIndex, int newIndex) {
+    if (oldIndex < newIndex) {
+      newIndex -= 1;
+    }
+    final list = state.urls;
+    final String item = list.removeAt(oldIndex);
+    list.insert(newIndex, item);
+    emit(state.copyWith(urls: list));
   }
 }

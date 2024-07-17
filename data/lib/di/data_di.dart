@@ -21,9 +21,9 @@ final DataDI dataDI = DataDI();
 class DataDI {
   void initDependencies() {
     _initDio();
-    _initApi();
     _initService();
-    _initSetting();
+    _initSettings();
+    _initApi();
   }
 
   void _initDio() {
@@ -31,28 +31,6 @@ class DataDI {
       () => DioConfig(
         appConfig: appLocator<AppConfig>(),
       ),
-    );
-  }
-
-  void _initApi() {
-    appLocator.registerLazySingleton<ErrorHandler>(
-      ErrorHandler.new,
-    );
-
-    appLocator.registerLazySingleton<ApiProvider>(
-      () => ApiProvider(
-        appLocator<DioConfig>().dio,
-      ),
-    );
-
-    appLocator.registerLazySingleton<LocalCacheProviderImpl>(
-      () => LocalCacheProviderImpl(appConfig: appLocator<AppConfig>()),
-    );
-
-    appLocator.registerLazySingleton<IRepository>(
-      () => VpngateRepository(
-          remoteProvider: appLocator.get<ApiProvider>(),
-          localProvider: appLocator.get<LocalCacheProviderImpl>()),
     );
   }
 
@@ -76,7 +54,7 @@ class DataDI {
     }, dependsOn: [ConfigRepository]);
   }
 
-  void _initSetting() {
+  void _initSettings() {
     appLocator.registerSingletonAsync<ISettingsService>(
       () async {
         final settingsService = SettingsService(
@@ -86,6 +64,29 @@ class DataDI {
         return settingsService;
       },
       dependsOn: [ConfigRepository],
+    );
+  }
+
+  void _initApi() {
+    appLocator.registerLazySingleton<ErrorHandler>(
+      ErrorHandler.new,
+    );
+
+    appLocator.registerLazySingleton<ApiProvider>(
+      () => ApiProvider(
+        dio: appLocator<DioConfig>().dio,
+        settingsService: appLocator.get<ISettingsService>(),
+      ),
+    );
+
+    appLocator.registerLazySingleton<LocalCacheProviderImpl>(
+      () => LocalCacheProviderImpl(appConfig: appLocator<AppConfig>()),
+    );
+
+    appLocator.registerLazySingleton<IRepository>(
+      () => VpngateRepository(
+          remoteProvider: appLocator.get<ApiProvider>(),
+          localProvider: appLocator.get<LocalCacheProviderImpl>()),
     );
   }
 }

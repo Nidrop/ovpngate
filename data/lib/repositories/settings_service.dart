@@ -28,7 +28,7 @@ class SettingsService implements ISettingsService {
   }
 
   @override
-  Future<void> saveSettings(Settings settings) async {
+  Future<void> saveSettings() async {
     repository.saveSettings(settings: settings);
   }
 }
