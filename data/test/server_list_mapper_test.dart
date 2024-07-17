@@ -17,7 +17,7 @@ void main() {
     expect(listDto.first.numVpnSessions, 73);
     expect(listDto.first.uptime, 24 * 1000 * 60 * 60 * 24);
     expect(listDto.first.speed, 112414 * 10 * 1000);
-    expect(listDto.first.hostName, 'public-vpn-61.opengw.net');
+    expect(listDto.first.hostName, 'public-vpn-61');
     expect(listDto.first.ip, '219.100.37.51');
 
     // expect(listDto.length, 94); // all ovpn configs
