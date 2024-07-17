@@ -4,7 +4,7 @@ import 'package:domain/repositories/i_settings_service.dart';
 import 'package:navigation/navigation.dart';
 
 class SettingsCubit extends Cubit<Settings> {
-  SettingsCubit() : super(appLocator.get<ISettingsService>().settings.copy());
+  SettingsCubit(super.initialState);
 
   void saveSettings() {
     var settingsService = appLocator.get<ISettingsService>();

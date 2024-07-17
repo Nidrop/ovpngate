@@ -12,12 +12,14 @@ import 'package:settings/widgets/theme_toggle.dart';
 
 @RoutePage()
 class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
+  const SettingsScreen({super.key, this.settingsInit});
+  final Settings? settingsInit;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (BuildContext context) => SettingsCubit(),
+        create: (BuildContext context) => SettingsCubit(
+            settingsInit ?? appLocator.get<ISettingsService>().settings.copy()),
         child: BlocBuilder<SettingsCubit, Settings>(
           builder: (context, state) => Scaffold(
             appBar: AppBar(
