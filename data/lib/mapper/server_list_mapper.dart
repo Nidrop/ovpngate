@@ -59,6 +59,7 @@ sealed class ServerListMapper {
         name: listDto[index].hostName,
         ovpnConfig:
             utf8.decode(base64Decode(listDto[index].openVPNConfigDataBase64)),
+        ovpnConfigPath: listDto[index].openVPNConfigPath,
       ),
     );
   }
@@ -113,6 +114,8 @@ sealed class ServerListMapper {
         }
       }
       if (skipWithoutTcp) continue;
+      final String openVPNConfigPath =
+          "/common/openvpn_download.aspx?sid=${params['sid']!}&tcp=1&host=${params['ip']!}&port=${params['tcp']!}&hid=${params['hid']!}&/vpngate_${params['ip']!}_tcp_${params['tcp']!}.ovpn";
 
       //1
       countryLong = tdList[0].text;
@@ -145,7 +148,8 @@ sealed class ServerListMapper {
           1000;
 
       //TODO fill all fields
-      list.add(ServerInfoDto(
+      list.add(
+        ServerInfoDto(
           hostName: params['fqdn']!.split('.opengw.net').first,
           ip: params['ip']!,
           score: -1,
@@ -160,7 +164,10 @@ sealed class ServerListMapper {
           logType: '',
           operator: '',
           message: '',
-          openVPNConfigDataBase64: ''));
+          openVPNConfigDataBase64: '',
+          openVPNConfigPath: openVPNConfigPath,
+        ),
+      );
     }
 
     return list;

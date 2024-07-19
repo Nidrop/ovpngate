@@ -23,6 +23,7 @@ ServerInfoDto _$ServerInfoDtoFromJson(Map<String, dynamic> json) =>
       operator: json['operator'] as String,
       message: json['message'] as String,
       openVPNConfigDataBase64: json['openVPNConfigDataBase64'] as String,
+      openVPNConfigPath: json['openVPNConfigPath'] as String?,
     );
 
 Map<String, dynamic> _$ServerInfoDtoToJson(ServerInfoDto instance) =>
@@ -42,4 +43,5 @@ Map<String, dynamic> _$ServerInfoDtoToJson(ServerInfoDto instance) =>
       'operator': instance.operator,
       'message': instance.message,
       'openVPNConfigDataBase64': instance.openVPNConfigDataBase64,
+      'openVPNConfigPath': instance.openVPNConfigPath,
     };

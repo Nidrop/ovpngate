@@ -19,6 +19,7 @@ class ServerInfoDto {
   final String operator;
   final String message;
   final String openVPNConfigDataBase64;
+  final String? openVPNConfigPath;
 
   ServerInfoDto({
     required this.hostName,
@@ -36,6 +37,7 @@ class ServerInfoDto {
     required this.operator,
     required this.message,
     required this.openVPNConfigDataBase64,
+    this.openVPNConfigPath,
   });
 
   factory ServerInfoDto.fromJson(Map<String, dynamic> json) =>

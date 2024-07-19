@@ -77,6 +77,7 @@ class ServerListScreen extends StatelessWidget {
                         uptime: servers[index].uptime,
                         name: servers[index].name,
                         ovpnConfig: servers[index].ovpnConfig,
+                        ovpnConfigPath: servers[index].ovpnConfigPath,
                       ),
                     );
                   },

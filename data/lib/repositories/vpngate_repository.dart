@@ -40,4 +40,11 @@ class VpngateRepository implements IRepository {
         ServerListMapper.listServerInfoDtoToModel(listDto: dto);
     return result;
   }
+
+  @override
+  Future<String> getConfig({required String path}) async {
+    // final name = path.split('/').last;
+    final config = await remoteProvider.getConfig(path);
+    return config;
+  }
 }

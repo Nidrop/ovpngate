@@ -40,5 +40,17 @@ class ApiProvider {
     }
   }
 
+  Future<String> getConfig(String path) async {
+    try {
+      final url = settingsService.settings.currentUrl + path;
+
+      final response = await dio.get(url);
+      final String data = response.data;
+      return data;
+    } on DioException catch (e) {
+      rethrow;
+    }
+  }
+
   // void setToken(String? token);
 }

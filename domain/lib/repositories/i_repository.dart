@@ -7,4 +7,6 @@ abstract class IRepository {
     required bool forceRefresh,
     required bool getCache,
   });
+
+  Future<String> getConfig({required String path});
 }

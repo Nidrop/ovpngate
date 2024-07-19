@@ -1,5 +1,6 @@
 import 'package:core/localization/generated/locale_keys.g.dart';
 import 'package:domain/models/server_info.dart';
+import 'package:domain/repositories/i_repository.dart';
 import 'package:domain/repositories/i_vpn_service.dart';
 import 'package:flutter/material.dart';
 import 'package:core/core.dart';
@@ -27,6 +28,7 @@ class ServerInfoScreen extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => ServerInfoCubit(
           SelectedServerState(selectedServer: selectedServer),
+          vpnRepository: appLocator.get<IRepository>(),
           vpnService: appLocator.get<IVpnService>()),
       child: Scaffold(
         appBar: AppBar(
@@ -74,26 +76,31 @@ class ServerInfoScreen extends StatelessWidget {
             ),
             Expanded(
               flex: 5,
-              child: BlocBuilder<ServerInfoCubit, ServerInfoState>(
-                  builder: (context, state) {
-                return Center(
-                  child: (state is ConnectedServerState &&
-                          state.connectedServer.name ==
-                              state.selectedServer.name)
-                      ? FilledButton(
-                          style: FilledButton.styleFrom(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.error,
-                          ),
-                          onPressed: () => disconnect(context),
-                          child: Text(context.tr(LocaleKeys.common_disconnect)),
-                        )
-                      : FilledButton(
-                          onPressed: () => connect(context),
-                          child: Text(context.tr(LocaleKeys.common_connect)),
-                        ),
-                );
-              }),
+              child: Center(
+                child: BlocBuilder<ServerInfoCubit, ServerInfoState>(
+                    builder: (context, state) {
+                  if (state is ConnectedServerState &&
+                      state.connectedServer.name == state.selectedServer.name) {
+                    return FilledButton(
+                      style: FilledButton.styleFrom(
+                        backgroundColor: Theme.of(context).colorScheme.error,
+                      ),
+                      onPressed: () => disconnect(context),
+                      child: Text(context.tr(LocaleKeys.common_disconnect)),
+                    );
+                  } else if (state is DownloadingState) {
+                    return const FilledButton(
+                      onPressed: null,
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    return FilledButton(
+                      onPressed: () => connect(context),
+                      child: Text(context.tr(LocaleKeys.common_connect)),
+                    );
+                  }
+                }),
+              ),
             ),
           ],
         ),
