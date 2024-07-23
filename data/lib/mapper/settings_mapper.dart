@@ -5,7 +5,7 @@ abstract class SettingsMapper {
     return <String, dynamic>{
       "themeMode": settings.themeMode.index,
       "fetchMode": settings.fetchMode.index,
-      "currentUrl": settings.currentUrl,
+      "index": settings.index,
       "urls": settings.urls,
     };
   }
@@ -15,7 +15,7 @@ abstract class SettingsMapper {
       themeMode: EnThemeMode.values[json["themeMode"]],
       fetchMode: FetchMode.values[json["fetchMode"]],
       urls: List<String>.from(json["urls"]),
-      currentUrl: json["currentUrl"],
+      index: json["index"],
     );
   }
 }

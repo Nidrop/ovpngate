@@ -8,6 +8,7 @@ import 'package:navigation/navigation.dart';
 import 'package:settings/bloc/settings_cubit.dart';
 import 'package:settings/widgets/fetch_switch.dart';
 import 'package:settings/widgets/mirror_list_view.dart';
+import 'package:settings/widgets/mirror_text_field.dart';
 import 'package:settings/widgets/theme_toggle.dart';
 
 @RoutePage()
@@ -54,7 +55,15 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ),
                 if (state.fetchMode == FetchMode.html) ...[
-                  const Text('Mirrors order'),
+                  Divider(),
+                  Text('Add mirror:'),
+                  MirrorTextField(
+                    onSubmitted: (url) {
+                      context.read<SettingsCubit>().addMirror(url);
+                    },
+                  ),
+                  Divider(),
+                  Text('Mirror order:'),
                   Flexible(
                     child: MirrorListView(urls: state.urls),
                   )

@@ -12,14 +12,14 @@ enum FetchMode {
 class Settings {
   EnThemeMode themeMode;
   FetchMode fetchMode;
-  String currentUrl;
+  int index;
   List<String> urls;
 
   Settings({
     this.themeMode = EnThemeMode.system,
     this.fetchMode = FetchMode.csv,
     required this.urls,
-    required this.currentUrl,
+    required this.index,
   });
 
   Settings copy() {
@@ -27,21 +27,21 @@ class Settings {
       themeMode: this.themeMode,
       fetchMode: this.fetchMode,
       urls: [...this.urls],
-      currentUrl: this.currentUrl,
+      index: this.index,
     );
   }
 
   Settings copyWith({
     EnThemeMode? themeMode,
     FetchMode? fetchMode,
-    String? currentUrl,
+    int? index,
     List<String>? urls,
   }) {
     return Settings(
       themeMode: themeMode ?? this.themeMode,
       fetchMode: fetchMode ?? this.fetchMode,
       urls: urls ?? this.urls,
-      currentUrl: currentUrl ?? this.currentUrl,
+      index: index ?? this.index,
     );
   }
 }

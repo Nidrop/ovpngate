@@ -28,7 +28,7 @@ void main() {
             home: SettingsScreen(
               settingsInit: Settings(
                 urls: ApiConstants.staticMirrorList,
-                currentUrl: ApiConstants.staticMirrorList.first,
+                index: 0,
               ),
             ),
           );

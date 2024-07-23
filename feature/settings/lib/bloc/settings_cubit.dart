@@ -29,13 +29,31 @@ class SettingsCubit extends Cubit<Settings> {
     emit(state.copyWith(fetchMode: fetchMode));
   }
 
-  void changeMirrorsOrder(int oldIndex, int newIndex) {
+  void reorderMirrors(int oldIndex, int newIndex) {
     if (oldIndex < newIndex) {
       newIndex -= 1;
     }
     final list = state.urls;
     final String item = list.removeAt(oldIndex);
     list.insert(newIndex, item);
+    emit(state.copyWith(
+      urls: list,
+      index: 0,
+    ));
+  }
+
+  void deleteMirror(int index) {
+    final list = state.urls;
+    list.removeAt(index);
+    emit(state.copyWith(
+      urls: list,
+      index: 0,
+    ));
+  }
+
+  void addMirror(String value) {
+    final list = state.urls;
+    list.add(value);
     emit(state.copyWith(urls: list));
   }
 }

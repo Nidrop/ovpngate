@@ -22,7 +22,7 @@ class SettingsService implements ISettingsService {
     settings = await repository.readSettings() ??
         Settings(
           urls: ApiConstants.staticMirrorList,
-          currentUrl: ApiConstants.staticMirrorList.first,
+          index: 0,
         );
     return settings;
   }

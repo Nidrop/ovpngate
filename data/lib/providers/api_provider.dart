@@ -15,41 +15,58 @@ class ApiProvider {
   });
 
   Future<List<ServerInfoDto>> getServerList() async {
-    try {
-      String url = settingsService.settings.currentUrl;
-      if (settingsService.settings.fetchMode == FetchMode.csv) {
-        url += ApiConstants.serverList;
-      }
-      final response = await dio.get(url);
+    final settings = settingsService.settings;
 
-      final String data = response.data;
-      switch (settingsService.settings.fetchMode) {
-        case FetchMode.csv:
-          return ServerListMapper.csvToListServerInfoDto(data);
-        case FetchMode.html:
-          return ServerListMapper.htmlTolistServerInfoDto(data);
-      }
-    } on DioException catch (e) {
-      if (e.type == DioExceptionType.connectionTimeout) {
-        // Handle connection timeout error
-        AppLogger().warning('Connection timeout error: ${e.message}');
-        rethrow;
-      } else {
-        rethrow;
-      }
+    switch (settings.fetchMode) {
+      case FetchMode.csv:
+        {
+          try {
+            final url = ApiConstants.staticMirrorList.first +
+                ApiConstants.apiServerList;
+            final response = await dio.get(url);
+            return ServerListMapper.csvToListServerInfoDto(response.data);
+          } on DioException {
+            rethrow;
+          }
+        }
+      case FetchMode.html:
+        {
+          assert(settings.index <= settings.urls.length - 1);
+          while (settings.index <= settings.urls.length - 1) {
+            try {
+              final url = settings.urls[settings.index];
+              final response = await dio.get(url);
+
+              return ServerListMapper.htmlTolistServerInfoDto(response.data);
+            } on DioException catch (e) {
+              if (e.type == DioExceptionType.connectionTimeout) {
+                AppLogger().warning(
+                    '${settings.urls[settings.index]} mirror is skipped , error: ${e.message}');
+                ++settings.index;
+                if (settings.index == settings.urls.length) {
+                  settings.index = 0;
+                  final message = 'All mirrors are not available: ${e.message}';
+                  AppLogger().error(message);
+                  throw Exception(message);
+                }
+                continue;
+              } else {
+                rethrow;
+              }
+            }
+          }
+        }
     }
+    throw Exception('Never');
   }
 
   Future<String> getConfig(String path) async {
-    try {
-      final url = settingsService.settings.currentUrl + path;
+    final settings = settingsService.settings;
+    final url = settings.urls[settings.index] + path;
 
-      final response = await dio.get(url);
-      final String data = response.data;
-      return data;
-    } on DioException catch (e) {
-      rethrow;
-    }
+    final response = await dio.get(url);
+    final String data = response.data;
+    return data;
   }
 
   // void setToken(String? token);
