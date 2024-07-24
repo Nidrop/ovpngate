@@ -35,7 +35,7 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ],
             ),
-            body: Column(
+            body: ListView(
               children: [
                 Text('Theme'),
                 SizedBox(
@@ -64,9 +64,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   Divider(),
                   Text('Mirror order:'),
-                  Flexible(
-                    child: MirrorListView(urls: state.urls),
-                  )
+                  MirrorListView(urls: state.urls)
                 ],
               ],
             ),
