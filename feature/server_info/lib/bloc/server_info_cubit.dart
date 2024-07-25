@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:core/core.dart';
+import 'package:core/logger/logger.dart';
+import 'package:domain/error_handler/config_exception.dart';
 import 'package:domain/repositories/i_repository.dart';
 import 'package:domain/repositories/i_vpn_service.dart';
 import 'package:server_info/bloc/server_info_state.dart';
@@ -47,11 +49,27 @@ class ServerInfoCubit extends Cubit<ServerInfoState> {
       emit(DownloadingState(
         selectedServer: state.selectedServer,
       ));
-      final config = await vpnRepository.getConfig(
-          path: state.selectedServer.ovpnConfigPath!);
-      emit(SelectedServerState(
-        selectedServer: state.selectedServer.copyWith(ovpnConfig: config),
-      ));
+      try {
+        final config = await vpnRepository.getConfig(
+            path: state.selectedServer.ovpnConfigPath!);
+        emit(SelectedServerState(
+          selectedServer: state.selectedServer.copyWith(ovpnConfig: config),
+        ));
+      } on ConfigException catch (e) {
+        emit(SelectedServerState(
+          selectedServer: state.selectedServer,
+        ));
+        AppLogger().warning(e.message);
+        //TODO snackbar
+        return;
+      } on DioException catch (e) {
+        emit(SelectedServerState(
+          selectedServer: state.selectedServer,
+        ));
+        AppLogger().warning(e.message);
+        //TODO snackbar
+        return;
+      }
     } else {
       emit(SelectedServerState(
         selectedServer: state.selectedServer,

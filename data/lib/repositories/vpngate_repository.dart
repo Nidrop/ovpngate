@@ -5,6 +5,8 @@ import 'package:data/entities/server_info_dto.dart';
 import 'package:data/mapper/server_list_mapper.dart';
 import 'package:data/providers/api_provider.dart';
 import 'package:data/providers/local_data_provider.dart';
+import 'package:data/validator/vpngate_config_validator.dart';
+import 'package:domain/error_handler/config_exception.dart';
 import 'package:domain/models/server_info.dart';
 import 'package:domain/repositories/i_repository.dart';
 
@@ -43,8 +45,12 @@ class VpngateRepository implements IRepository {
 
   @override
   Future<String> getConfig({required String path}) async {
-    // final name = path.split('/').last;
     final config = await remoteProvider.getConfig(path);
+
+    if (!VpngateConfigValidator.validate(config)) {
+      throw ConfigException('Config is out of date');
+    }
+
     return config;
   }
 }
