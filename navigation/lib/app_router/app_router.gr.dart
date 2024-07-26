@@ -18,5 +18,6 @@ abstract class _$AppRouter extends RootStackRouter {
     ...ServerListModule().pagesMap,
     ...ServerInfoModule().pagesMap,
     ...SettingsModule().pagesMap,
+    ...SplashModule().pagesMap,
   };
 }

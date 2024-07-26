@@ -15,6 +15,12 @@ abstract class AppColors {
 
 class DarkColors extends LightColors {
   const DarkColors();
+
+  @override
+  Color get primaryBg => Color.fromARGB(255, 210, 225, 235);
+
+  @override
+  Color get white => const Color.fromRGBO(100, 100, 100, 1);
 }
 
 class LightColors implements AppColors {

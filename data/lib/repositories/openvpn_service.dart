@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:core/core.dart';
 import 'package:data/mapper/openvpn_mapper.dart';
-import 'package:data/mapper/server_info_mapper.dart';
 import 'package:data/providers/local_data_provider.dart';
 import 'package:data/repositories/config_repository.dart';
 import 'package:domain/models/server_info.dart';

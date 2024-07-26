@@ -10,7 +10,7 @@ part 'interceptors/response_interceptor.dart';
 
 class DioConfig {
   final AppConfig appConfig;
-  static const int timeout = 10 * 1000;
+  static const int timeout = 15 * 1000;
 
   final Dio _dio = Dio();
 
@@ -18,7 +18,7 @@ class DioConfig {
 
   DioConfig({required this.appConfig}) {
     _dio
-      ..options.baseUrl = appConfig.baseUrl
+      ..options.connectTimeout = const Duration(milliseconds: timeout)
       ..interceptors.addAll(<Interceptor>[
         RequestInterceptor(_dio, headers),
         ErrorInterceptor(_dio),

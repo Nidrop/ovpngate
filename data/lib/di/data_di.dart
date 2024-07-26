@@ -1,12 +1,16 @@
 import 'package:core/config/app_config.dart';
 import 'package:core/config/network/dio_config.dart';
+import 'package:core/core.dart';
 
 import 'package:core/di/app_di.dart';
 import 'package:data/providers/local_data_provider.dart';
 import 'package:data/repositories/config_repository.dart';
+import 'package:data/repositories/settings_service.dart';
 import 'package:data/repositories/vpngate_repository.dart';
 import 'package:data/repositories/openvpn_service.dart';
+import 'package:domain/models/settings.dart';
 import 'package:domain/repositories/i_repository.dart';
+import 'package:domain/repositories/i_settings_service.dart';
 import 'package:domain/repositories/i_vpn_service.dart';
 
 import '../errors/error_handler.dart';
@@ -17,8 +21,9 @@ final DataDI dataDI = DataDI();
 class DataDI {
   void initDependencies() {
     _initDio();
-    _initApi();
     _initService();
+    _initSettings();
+    _initApi();
   }
 
   void _initDio() {
@@ -26,28 +31,6 @@ class DataDI {
       () => DioConfig(
         appConfig: appLocator<AppConfig>(),
       ),
-    );
-  }
-
-  void _initApi() {
-    appLocator.registerLazySingleton<ErrorHandler>(
-      ErrorHandler.new,
-    );
-
-    appLocator.registerLazySingleton<ApiProvider>(
-      () => ApiProvider(
-        appLocator<DioConfig>().dio,
-      ),
-    );
-
-    appLocator.registerLazySingleton<LocalCacheProviderImpl>(
-      () => LocalCacheProviderImpl(appConfig: appLocator<AppConfig>()),
-    );
-
-    appLocator.registerLazySingleton<IRepository>(
-      () => VpngateRepository(
-          remoteProvider: appLocator.get<ApiProvider>(),
-          localProvider: appLocator.get<LocalCacheProviderImpl>()),
     );
   }
 
@@ -69,5 +52,41 @@ class DataDI {
       await openvpnService.initialize();
       return openvpnService;
     }, dependsOn: [ConfigRepository]);
+  }
+
+  void _initSettings() {
+    appLocator.registerSingletonAsync<ISettingsService>(
+      () async {
+        final settingsService = SettingsService(
+          repository: appLocator.get<ConfigRepository>(),
+        );
+        await settingsService.initialize();
+        return settingsService;
+      },
+      dependsOn: [ConfigRepository],
+    );
+  }
+
+  void _initApi() {
+    appLocator.registerLazySingleton<ErrorHandler>(
+      ErrorHandler.new,
+    );
+
+    appLocator.registerLazySingleton<ApiProvider>(
+      () => ApiProvider(
+        dio: appLocator<DioConfig>().dio,
+        settingsService: appLocator.get<ISettingsService>(),
+      ),
+    );
+
+    appLocator.registerLazySingleton<LocalCacheProviderImpl>(
+      () => LocalCacheProviderImpl(appConfig: appLocator<AppConfig>()),
+    );
+
+    appLocator.registerLazySingleton<IRepository>(
+      () => VpngateRepository(
+          remoteProvider: appLocator.get<ApiProvider>(),
+          localProvider: appLocator.get<LocalCacheProviderImpl>()),
+    );
   }
 }

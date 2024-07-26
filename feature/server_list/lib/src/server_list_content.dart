@@ -61,6 +61,7 @@ class ServerListContent extends StatelessWidget {
                     uptime: server.uptime,
                     name: server.name,
                     ovpnConfig: server.ovpnConfig,
+                    ovpnConfigPath: server.ovpnConfigPath,
                   ),
                 );
               },

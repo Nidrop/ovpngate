@@ -44,6 +44,10 @@ class ServerInfoContent extends StatelessWidget {
                       state.connectedServer.name == state.selectedServer.name)
                     Text(
                       state.stage.name,
+                      style: TextStyle(
+                          // fontSize: 20,
+                          // fontWeight: FontWeight.bold,
+                          ),
                     )
                 ],
               );
@@ -51,28 +55,35 @@ class ServerInfoContent extends StatelessWidget {
           ),
           Expanded(
             flex: 5,
-            child: BlocBuilder<ServerInfoCubit, ServerInfoState>(
-                builder: (context, state) {
-              return Center(
-                child: (state is ConnectedServerState &&
-                        state.connectedServer.name == state.selectedServer.name)
-                    ? FilledButton(
-                        style: FilledButton.styleFrom(
-                          backgroundColor: Theme.of(context).colorScheme.error,
-                        ),
-                        onPressed: () {
-                          context.read<ServerInfoCubit>().disconnect();
-                        },
-                        child: Text(context.tr(LocaleKeys.common_disconnect)),
-                      )
-                    : FilledButton(
-                        onPressed: () {
-                          context.read<ServerInfoCubit>().connect();
-                        },
-                        child: Text(context.tr(LocaleKeys.common_connect)),
-                      ),
-              );
-            }),
+            child: Center(
+              child: BlocBuilder<ServerInfoCubit, ServerInfoState>(
+                  builder: (context, state) {
+                if (state is ConnectedServerState &&
+                    state.connectedServer.name == state.selectedServer.name) {
+                  return FilledButton(
+                    style: FilledButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.error,
+                    ),
+                    onPressed: () {
+                      context.read<ServerInfoCubit>().disconnect();
+                    },
+                    child: Text(context.tr(LocaleKeys.common_disconnect)),
+                  );
+                } else if (state is DownloadingState) {
+                  return const FilledButton(
+                    onPressed: null,
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  return FilledButton(
+                    onPressed: () {
+                      context.read<ServerInfoCubit>().connect();
+                    },
+                    child: Text(context.tr(LocaleKeys.common_connect)),
+                  );
+                }
+              }),
+            ),
           ),
         ],
       ),

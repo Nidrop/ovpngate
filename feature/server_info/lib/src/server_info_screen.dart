@@ -1,5 +1,6 @@
 import 'package:core/localization/generated/locale_keys.g.dart';
 import 'package:domain/models/server_info.dart';
+import 'package:domain/repositories/i_repository.dart';
 import 'package:domain/repositories/i_vpn_service.dart';
 import 'package:flutter/material.dart';
 import 'package:core/core.dart';
@@ -19,7 +20,8 @@ class ServerInfoScreen extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => ServerInfoCubit(
           SelectedServerState(selectedServer: selectedServer),
-          vpnService: appLocator.get<IVpnService>()),
+          vpnService: appLocator.get<IVpnService>(),
+          vpnRepository: appLocator.get<IRepository>()),
       child: const ServerInfoContent(),
     );
   }

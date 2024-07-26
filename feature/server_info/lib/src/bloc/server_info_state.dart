@@ -13,6 +13,12 @@ class SelectedServerState extends ServerInfoState {
   });
 }
 
+class DownloadingState extends ServerInfoState {
+  DownloadingState({
+    required super.selectedServer,
+  });
+}
+
 class ConnectedServerState extends ServerInfoState {
   final ServerInfo connectedServer;
   final EnVPNStage stage;

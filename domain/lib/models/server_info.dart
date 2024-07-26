@@ -6,6 +6,7 @@ class ServerInfo {
     required this.uptime,
     required this.name,
     required this.ovpnConfig,
+    this.ovpnConfigPath,
   });
 
   final String name;
@@ -14,22 +15,24 @@ class ServerInfo {
   final String countryShort;
   final int sessions;
   final int uptime;
+  final String? ovpnConfigPath;
 
-  // ServerInfo copyWith({
-  //   String? name,
-  //   String? ovpnConfig,
-  //   int? speed,
-  //   String? countryShort,
-  //   int? sessions,
-  //   int? uptime,
-  // }) {
-  //   return ServerInfo(
-  //     speed: speed ?? this.speed,
-  //     countryShort: countryShort ?? this.countryShort,
-  //     sessions: sessions ?? this.sessions,
-  //     uptime: uptime ?? this.uptime,
-  //     name: name ?? this.name,
-  //     ovpnConfig: ovpnConfig ?? this.name,
-  //   );
-  // }
+  ServerInfo copyWith({
+    String? name,
+    String? ovpnConfig,
+    int? speed,
+    String? countryShort,
+    int? sessions,
+    int? uptime,
+  }) {
+    return ServerInfo(
+      speed: speed ?? this.speed,
+      countryShort: countryShort ?? this.countryShort,
+      sessions: sessions ?? this.sessions,
+      uptime: uptime ?? this.uptime,
+      name: name ?? this.name,
+      ovpnConfig: ovpnConfig ?? this.name,
+      ovpnConfigPath: null,
+    );
+  }
 }
