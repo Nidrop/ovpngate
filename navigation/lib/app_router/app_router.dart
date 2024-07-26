@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:core/core.dart';
 import 'package:domain/models/server_info.dart';
-import 'package:flutter/material.dart';
 import 'package:navigation/app_router/splash_guard.dart';
 import 'package:server_info/server_info.dart';
 import 'package:server_list/server_list.dart';
@@ -58,18 +58,17 @@ class AppRouter extends _$AppRouter {
   static void pushNamedCustom({
     required AppRoutes route,
     Object? obj,
-    required BuildContext context,
   }) {
+    final router = appLocator.get<AppRouter>();
     switch (route) {
       case AppRoutes.serverList:
-        context.router.push(const ServerListRoute());
+        router.push(const ServerListRoute());
       case AppRoutes.serverInfo:
-        context.router.push(ServerInfoRoute(
-            selectedServer: (obj is ServerInfo)
-                ? obj
-                : throw Exception('argument obj is not ServerInfo instance')));
+        if (obj is ServerInfo) {
+          router.push(ServerInfoRoute(selectedServer: obj));
+        }
       case AppRoutes.settings:
-        context.router.push(const SettingsRoute());
+        router.push(const SettingsRoute());
       default:
     }
   }

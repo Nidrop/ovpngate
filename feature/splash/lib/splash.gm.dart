@@ -9,7 +9,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i2;
-import 'package:splash/splash_screen.dart' as _i1;
+import 'package:splash/src/splash_screen.dart' as _i1;
 
 abstract class $SplashModule extends _i2.AutoRouterModule {
   @override

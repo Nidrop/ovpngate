@@ -13,12 +13,6 @@ void main() async {
 }
 
 Future<void> _setupDI() async {
-  // appLocator.pushNewScope(
-  //   scopeName: unauthScope,
-  //   init: (_) async {
-  //     await AppDI.initDependencies();
-  //   },
-  // );
   AppDI.initDependencies();
   dataDI.initDependencies();
   setupNavigationDependencies();
