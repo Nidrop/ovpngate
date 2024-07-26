@@ -3,7 +3,7 @@ import 'package:core_ui/core_ui.dart';
 import 'package:domain/models/settings.dart';
 import 'package:domain/repositories/i_settings_service.dart';
 import 'package:flutter/material.dart';
-import 'package:settings/bloc/settings_cubit.dart';
+import 'package:settings/src/bloc/settings_cubit.dart';
 
 class ThemeToggle extends StatelessWidget {
   final EnThemeMode themeMode;

@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:settings/bloc/settings_cubit.dart';
+import 'package:settings/src/bloc/settings_cubit.dart';
 
 class MirrorListView extends StatelessWidget {
   const MirrorListView({

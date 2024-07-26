@@ -4,7 +4,7 @@ import 'package:core_ui/core_ui.dart';
 import 'package:domain/models/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:settings/settings_screen.dart';
+import 'package:settings/src/settings_screen.dart';
 import 'package:data/di/data_di.dart';
 
 void main() {

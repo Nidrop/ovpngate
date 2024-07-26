@@ -1,7 +1,7 @@
 import 'package:core/core.dart';
 import 'package:domain/models/settings.dart';
 import 'package:flutter/material.dart';
-import 'package:settings/bloc/settings_cubit.dart';
+import 'package:settings/src/bloc/settings_cubit.dart';
 
 class FetchSwitch extends StatelessWidget {
   final FetchMode fetchMode;
