@@ -13,9 +13,23 @@ class SelectedServerState extends ServerInfoState {
   });
 }
 
-class DownloadingState extends ServerInfoState {
-  DownloadingState({
+class DownloadingServerInfoState extends ServerInfoState {
+  DownloadingServerInfoState({
     required super.selectedServer,
+  });
+}
+
+class DisabledServerState extends ServerInfoState {
+  DisabledServerState({
+    required super.selectedServer,
+  });
+}
+
+class ErrorServerState extends ServerInfoState {
+  final String? error;
+  ErrorServerState({
+    required super.selectedServer,
+    required this.error,
   });
 }
 

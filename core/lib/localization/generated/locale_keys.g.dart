@@ -11,6 +11,7 @@ abstract class  LocaleKeys {
   static const common_sessions = 'common.sessions';
   static const common_days = 'common.days';
   static const common_mbps = 'common.mbps';
+  static const common_config_is_outdated_please_re_download_the_server_list = 'common.config_is_outdated_please_re_download_the_server_list';
   static const common = 'common';
 
 }

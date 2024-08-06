@@ -1,14 +1,15 @@
 {
-  "common" : {
-    "oVPNGate" : "oVPNGate",
-    "vpnServer" : "VPN Server",
-    "settings" : "Settings",
-    "notSelected" : "not selected",
-    "connect" : "connect",
-    "disconnect" : "disconnect",
-    "serverList" : "Server list",
-    "sessions" : "sessions",
-    "days" : "days",
-    "mbps" : "Mbps"
+  "common": {
+    "oVPNGate": "oVPNGate",
+    "vpnServer": "VPN Server",
+    "settings": "Settings",
+    "notSelected": "not selected",
+    "connect": "connect",
+    "disconnect": "disconnect",
+    "serverList": "Server list",
+    "sessions": "sessions",
+    "days": "days",
+    "mbps": "Mbps",
+    "config_is_outdated_please_re_download_the_server_list": "Config is outdated, please re-download the server list"
   }
 }

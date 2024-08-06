@@ -46,7 +46,7 @@ class ServerInfoCubit extends Cubit<ServerInfoState> {
     disconnect();
 
     if (state.selectedServer.ovpnConfigPath != null) {
-      emit(DownloadingState(
+      emit(DownloadingServerInfoState(
         selectedServer: state.selectedServer,
       ));
       try {
@@ -56,18 +56,17 @@ class ServerInfoCubit extends Cubit<ServerInfoState> {
           selectedServer: state.selectedServer.copyWith(ovpnConfig: config),
         ));
       } on ConfigException catch (e) {
-        emit(SelectedServerState(
+        emit(DisabledServerState(
           selectedServer: state.selectedServer,
         ));
         AppLogger().warning(e.message);
-        //TODO snackbar
         return;
       } on DioException catch (e) {
-        emit(SelectedServerState(
+        emit(ErrorServerState(
           selectedServer: state.selectedServer,
+          error: e.message,
         ));
         AppLogger().warning(e.message);
-        //TODO snackbar
         return;
       }
     } else {
@@ -80,6 +79,12 @@ class ServerInfoCubit extends Cubit<ServerInfoState> {
 
   void disconnect() {
     vpnService.disconnect();
+  }
+
+  void fixErrorState() {
+    if (state is ErrorServerState) {
+      emit(SelectedServerState(selectedServer: state.selectedServer));
+    }
   }
 
   @override
