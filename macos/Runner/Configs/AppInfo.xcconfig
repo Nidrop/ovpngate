@@ -11,4 +11,4 @@ PRODUCT_NAME = ovpngate
 PRODUCT_BUNDLE_IDENTIFIER = net.ovpngate.ovpngate
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2024 net.ovpngate. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2025 net.ovpngate. All rights reserved.

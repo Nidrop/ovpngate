@@ -2,7 +2,7 @@
 
 Simple openvpn client for [vpngate.net](https://www.vpngate.net).
 
-| ![cat](readme/screenshot_1.png) | ![dog](readme/screenshot_2.png) |
+| ![server-list](readme/screenshot_1.png) | ![home-page](readme/screenshot_2.png) |
 | - | - |
 
 ## Building
