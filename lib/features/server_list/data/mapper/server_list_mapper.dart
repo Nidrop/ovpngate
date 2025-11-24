@@ -3,16 +3,13 @@ import 'dart:convert';
 import 'package:csv/csv.dart';
 import 'package:flutter/foundation.dart';
 import 'package:ovpngate/core/domain/entity/server_info.dart';
-import 'package:ovpngate/features/server%20list/data/dto/server_info_dto.dart';
 
 sealed class ServerListMapper {
-  static List<ServerInfoDto> stringToListServerInfoDto({
-    required String rawCSV,
-  }) {
+  static List<ServerInfo> fromCSV({required String csv}) {
     int rowLength = 15;
 
-    List<ServerInfoDto> list = [];
-    final csvList = const CsvToListConverter().convert(rawCSV);
+    List<ServerInfo> list = [];
+    final csvList = const CsvToListConverter().convert(csv);
     for (int i = 0; i < csvList.length; i++) {
       final row = csvList[i];
       if (row.length != rowLength) {
@@ -20,7 +17,7 @@ sealed class ServerListMapper {
       }
       try {
         list.add(
-          ServerInfoDto(
+          ServerInfo(
             hostName: row[0] as String,
             ip: row[1] as String,
             score: row[2] as int,
@@ -35,7 +32,7 @@ sealed class ServerListMapper {
             logType: row[11] as String,
             operator: row[12] as String,
             message: row[13] as String,
-            openVPNConfigDataBase64: row[14] as String,
+            vpnConfig: utf8.decode(base64Decode(row[14] as String)),
           ),
         );
       } catch (e) {
@@ -44,22 +41,5 @@ sealed class ServerListMapper {
       }
     }
     return list;
-  }
-
-  static List<ServerInfo> listServerInfoDtoToEntities({
-    required List<ServerInfoDto> listDto,
-  }) {
-    return List.generate(
-      listDto.length,
-      (index) => ServerInfo(
-        speed: listDto[index].speed,
-        countryShort: listDto[index].countryShort,
-        sessions: listDto[index].numVpnSessions,
-        uptime: listDto[index].uptime,
-        name: listDto[index].hostName,
-        ovpnConfig:
-            utf8.decode(base64Decode(listDto[index].openVPNConfigDataBase64)),
-      ),
-    );
   }
 }

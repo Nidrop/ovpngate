@@ -1,12 +1,33 @@
-class LangEN {
-  static const String homeTitle = 'oVPNGate';
-  static const String vpnServer = 'VPN server';
-  static const String notSelected = 'not selected';
-  static const String connect = 'Connect';
-  static const String disconnect = 'Disonnect';
+import 'package:ovpngate/core/lang/lang.dart';
 
-  static const String serverListTitle = 'Server list';
-  static const String sessions = 'sessions';
-  static const String days = 'days';
-  static const String mbps = 'Mbps';
+class LangEN implements Lang {
+  @override
+  String get homeTitle => 'oVPNGate';
+  @override
+  String get vpnServer => 'VPN server';
+  @override
+  String get notSelected => 'not selected';
+  @override
+  String get connect => 'Connect';
+  @override
+  String get disconnect => 'Disonnect';
+
+  @override
+  String get serverListTitle => 'Server list';
+  @override
+  String get sessions => 'sessions';
+  @override
+  String get days => 'days';
+  @override
+  String get mbps => 'Mbps';
+  @override
+  String get areYouSureYouWantToContinue =>
+      'Are you sure you want to continue?';
+  @override
+  String get yourCurrentSessionWillBeTerminated =>
+      'Your current session will be terminated';
+  @override
+  String get yes => 'Yes';
+  @override
+  String get no => 'No';
 }
